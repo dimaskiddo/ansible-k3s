@@ -8,7 +8,7 @@
   lvol:
     vg: "{{ lvm_vg_name }}"
     lv: "lv-mariadb"
-    size: 100%
+    size: 100%FREE
     force: yes
 
 - name: Format Logical Volume

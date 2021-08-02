@@ -7,11 +7,13 @@
 
 - name: MariaDB Disable Root Plugin 'unix_socket'
   command: mysql -u root -e "UPDATE mysql.user SET plugin = '' WHERE user = 'root'; FLUSH PRIVILEGES;"
-  when: mariadb_root_init.rc == 0
+  when:
+    - mariadb_root_init.rc == 0
 
 - name: MariaDB Disable Root Remote Login
   command: mysql -u root -e "DELETE FROM mysql.user WHERE user='root' AND host NOT IN ('localhost', '127.0.0.1', '::1');"
-  when: mariadb_root_init.rc == 0
+  when: 
+    - mariadb_root_init.rc == 0
 
 - name: MariaDB Update Root User
   mysql_user:
@@ -25,7 +27,8 @@
     - "localhost"
     - "127.0.0.1"
     - "::1"
-  when: mariadb_root_init.rc == 0
+  when: 
+    - mariadb_root_init.rc == 0
 
 - name: MariaDB Remove Anonymous User
   mysql_user: 

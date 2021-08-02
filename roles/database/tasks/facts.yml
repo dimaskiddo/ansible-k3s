@@ -10,6 +10,7 @@
     node_ip: "{{ node_ip | default(default_value, true) }}"
     database_backend: "{{ database_backend | default(default_value, true) }}"
     mariadb_version: "{{ mariadb_version | default(default_value, true) }}"
+    mariadb_root_password: "{{ mariadb_root_password | default(default_value, true) }}"
     db_user: "{{ db_user | default(default_value, true) }}"
     db_password: "{{ db_password | default(default_value, true) }}"
     db_name: "{{ db_name | default(default_value, true) }}"
