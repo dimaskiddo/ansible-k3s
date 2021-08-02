@@ -31,10 +31,20 @@
     group: root
     mode: 0644
 
-- name: Installing PIP
+- name: Running PIP Installer
   command: "python2 /tmp/get-pip.py"
 
 - name: Remove PIP Installer
   file:
     path: /tmp/get-pip.py
     state: absent
+
+- name: Install PIP Packages
+  pip:
+    name: "{{ item }}"
+    extra_args: --no-cache-dir
+    state: present
+  with_items:
+    - pip
+    - setuptools
+    - wheel
