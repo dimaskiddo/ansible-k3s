@@ -1,0 +1,11 @@
+[all:vars]
+
+[database]
+
+[loadbalancer]
+
+[masters]
+
+[infras]
+
+[nodes]
