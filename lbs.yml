@@ -1,6 +1,0 @@
----
-- hosts: lbs
-  any_errors_fatal: true
-  roles:
-    - common
-    - lbs

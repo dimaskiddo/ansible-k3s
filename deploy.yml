@@ -1,0 +1,30 @@
+---
+- hosts: database:lbs:masters:infras:nodes
+  any_errors_fatal: true
+  roles:
+    - common
+
+- hosts: database
+  any_errors_fatal: true
+  roles:
+    - database
+
+- hosts: lbs
+  any_errors_fatal: true
+  roles:
+    - lbs
+
+- hosts: masters
+  any_errors_fatal: true
+  roles:
+    - master
+
+- hosts: infras
+  any_errors_fatal: true
+  roles:
+    - agent
+
+- hosts: nodes
+  any_errors_fatal: true
+  roles:
+    - agent
