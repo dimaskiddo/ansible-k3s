@@ -1,0 +1,22 @@
+---
+- name: Install Aptitude Key for MariaDB Repository
+  apt_key:
+    url: https://mariadb.org/mariadb_release_signing_key.asc
+    state: present
+
+- name: Enable MariaDB Repository
+  template:
+    src: MariaDB.list.j2
+    dest: /etc/apt/sources.list.d/MariaDB.list
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install MariaDB Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    state: present
+  with_items:
+    - mariadb-server

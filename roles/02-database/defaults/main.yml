@@ -1,1 +1,9 @@
 ---
+# Default for Enable ZFS
+enable_zfs: 'false'
+
+# Default Database Backend
+database_backend: 'mariadb'
+
+# Default for MariaDB Version
+mariadb_version: '10.5'

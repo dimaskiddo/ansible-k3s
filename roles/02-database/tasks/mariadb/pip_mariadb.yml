@@ -1,0 +1,7 @@
+---
+- name: Install PIP Packages
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - pymysql

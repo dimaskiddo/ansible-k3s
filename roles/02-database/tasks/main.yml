@@ -1,1 +1,8 @@
 ---
+- include: facts.yml
+
+- include: mariabdb/main.yml
+  when:
+    - database_backend == 'mariadb'
+
+- include: pkg_clean.yml

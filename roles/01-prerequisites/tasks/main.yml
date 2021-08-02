@@ -3,6 +3,8 @@
 
 - include: pkg_base.yml
 
+- include: pkg_python.yml
+
 - include: pkg_monitoring.yml
 
 - include: pkg_networking.yml
@@ -11,10 +13,13 @@
 
 - include: pkg_ip_vs.yml
   when:
+    - inventory_hostname in groups['masters'] or inventory_hostname in groups['infras'] or inventory_hostname in groups['nodes']
     - enable_ip_vs
 
 - include: pkg_zfs.yml
   when:
     - enable_zfs
+
+- include: pkg_clean.yml
 
 - include: sysctl.yml

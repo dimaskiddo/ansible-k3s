@@ -1,0 +1,12 @@
+---
+- name: Fail if Operating System is not Supported
+  fail:
+    msg: "Supported Operating System is Debian"
+  when:
+    - ansible_distribution != 'Debian'
+
+- name: Set Facts
+  set_fact:
+    enable_zfs: "{{ enable_zfs | default(default_value, true) }}"
+    database_backend: "{{ database_backend | default(default_value, true) }}"
+    mariadb_version: "{{ mariadb_version | default(default_value, true) }}"

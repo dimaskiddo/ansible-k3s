@@ -1,0 +1,5 @@
+---
+- hosts: database
+  any_errors_fatal: true
+  roles:
+  - role: 02-database

@@ -30,12 +30,13 @@
     update_cache: yes
     state: present
   with_items:
+    - lsb-release
     - bash-completion
     - ca-certificates
     - apt-transport-https
     - software-properties-common
+    - dirmngr
     - gnupg
-    - lsb-release
     - curl
     - wget
     - rsync
