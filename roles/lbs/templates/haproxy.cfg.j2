@@ -50,7 +50,7 @@ backend k3s_api_be
     balance source
     mode tcp
 {% for master_host in groups['masters'] %}
-    server {{ hostvars[master_host].ansible_default_ipv4.address }} {{ hostvars[master_host].ansible_default_ipv4.address }}:6443 check
+    server {{ hostvars[master_host].node_ip }} {{ hostvars[master_host].node_ip }}:6443 check
 {% endfor %}
 
 frontend k3s_db_fe
@@ -63,5 +63,5 @@ backend k3s_db_be
     balance source
     mode tcp
 {% for database_host in groups['database'] %}
-    server {{ hostvars[database_host].ansible_default_ipv4.address }} {{ hostvars[database_host].ansible_default_ipv4.address }}:3306 check
+    server {{ hostvars[database_host].node_ip }} {{ hostvars[database_host].node_ip }}:3306 check
 {% endfor %}

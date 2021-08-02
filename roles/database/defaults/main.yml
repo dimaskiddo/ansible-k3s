@@ -1,21 +1,33 @@
 ---
-# Default for Enable ZFS
-enable_zfs: 'false'
+# Default for Node IP
+node_ip: "{{ ansible_default_ipv4.address }}"
 
-# Default Database Backend
+# Default for Database Backend
 database_backend: 'mariadb'
 
 # Default for MariaDB Version
 mariadb_version: '10.5'
 
-# Default Value for ZFS Pool Name
+# Default for K3S Database User
+db_user: 'k3s'
+
+# Default for K3S Database Password
+db_password: 'k3s#P@ssw0rd'
+
+# Default for K3S Database Name
+db_name: 'db_k3s'
+
+# Default for Enable ZFS
+enable_zfs: 'false'
+
+# Default for ZFS Pool Name
 zfs_pool_name: 'data'
 
-# Default Value for ZFS Block Wipe
+# Default for ZFS Block Wipe
 zfs_block_wipe: 'false'
 
-# Default Value for ZFS Pool Wipe
+# Default for ZFS Pool Wipe
 zfs_pool_wipe: 'false'
 
-# Default Value for ZFS Dataset Wipe
+# Default for ZFS Dataset Wipe
 zfs_dataset_wipe: 'false'

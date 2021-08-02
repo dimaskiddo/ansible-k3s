@@ -1,0 +1,33 @@
+---
+# Default for Node IP
+node_ip: "{{ ansible_default_ipv4.address }}"
+
+# Default for Node Name
+node_name: "{{ ansible_hostname }}"
+
+# Default for K3S Channel
+channel: 'stable'
+
+# Default for K3S Version
+version: '1.21.3+k3s1'
+
+# Default for K3S Server Token
+token: "{{ 1000 | random | to_uuid | upper }}"
+
+# Default for K3S Database Host
+db_host: '127.0.0.1'
+
+# Default for K3S Database User
+db_user: 'k3s'
+
+# Default for K3S Database Password
+db_password: 'k3s#P@ssw0rd'
+
+# Default for K3S Database Name
+db_name: 'db_k3s'
+
+# Default for Enable IPVS
+enable_ip_vs: 'false'
+
+# Default for Enable ZFS
+enable_zfs: 'false'

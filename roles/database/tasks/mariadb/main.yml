@@ -8,3 +8,5 @@
     - enable_zfs
 
 - include: secure_mariadb.yml
+
+- include: db_k3s.yml

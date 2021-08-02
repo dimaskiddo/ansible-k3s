@@ -1,0 +1,22 @@
+---
+- name: MariaDB Create Database for K3S
+  mysql_db:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    name: "{{ db_name }}"
+    state: present
+
+- name: MariaDB Create User for K3S
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ db_name }}.*:ALL,GRANT"
+    host: "{{ item }}"
+    state: present
+  with_items:
+    - "localhost"
+    - "127.0.0.1"
+    - "::1"
+    - "%"
