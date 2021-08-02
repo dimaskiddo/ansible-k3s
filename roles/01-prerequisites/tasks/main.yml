@@ -1,1 +1,20 @@
 ---
+- include: facts.yml
+
+- include: pkg_base.yml
+
+- include: pkg_monitoring.yml
+
+- include: pkg_networking.yml
+
+- include: pkg_disk.yml
+
+- include: pkg_ip_vs.yml
+  when:
+    - enable_ip_vs
+
+- include: pkg_zfs.yml
+  when:
+    - enable_zfs
+
+- include: sysctl.yml
