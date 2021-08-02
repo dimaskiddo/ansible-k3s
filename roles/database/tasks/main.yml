@@ -1,7 +1,7 @@
 ---
 - include: facts.yml
 
-- include: ./mariadb/main.yml
+- include: mariadb/main.yml
   when:
     - database_backend == 'mariadb'
 

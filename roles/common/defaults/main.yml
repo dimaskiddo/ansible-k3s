@@ -11,5 +11,8 @@ enable_ip_vs: 'false'
 # Default for Enable ZFS
 enable_zfs: 'false'
 
+# Default for Enable LVM
+enable_lvm: 'false'
+
 # Default for Sanoid Version
 sanoid_version: '2.1.0'

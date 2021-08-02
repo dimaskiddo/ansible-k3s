@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 echo "Installing K3S Server"
-curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL='{{ channel }}' INSTALL_K3S_VERSION='v{{ version }}' INSTALL_K3S_SKIP_ENABLE=true INSTALL_K3S_SKIP_START=true INSTALL_K3S_EXEC='
+curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL='{{ k3s_channel }}' INSTALL_K3S_VERSION='v{{ k3s_version }}' INSTALL_K3S_SKIP_ENABLE=true INSTALL_K3S_SKIP_START=true INSTALL_K3S_EXEC='
 --node-name {{ node_name }} --node-ip {{ node_ip }} --advertise-address {{ node_ip }} --tls-san {{ server_san }}
 --disable traefik --disable servicelb --disable coredns --disable metrics-server --disable local-storage
 --disable-network-policy --flannel-backend none --cluster-cidr 172.30.0.0/16
@@ -13,4 +13,4 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL='{{ channel }}' INSTALL_K3S_V
 --kube-proxy-arg ipvs-scheduler=lc
 {% endif %}
 --datastore-endpoint mysql://{{ db_user }}:{{ db_password }}@tcp({{ db_host }}:3306)/{{ db_name }}
--t {{ token }}' sh -
+-t {{ server_token }}' sh -

@@ -6,13 +6,16 @@ node_ip: "{{ ansible_default_ipv4.address }}"
 node_name: "{{ ansible_hostname }}"
 
 # Default for K3S Channel
-channel: 'stable'
+k3s_channel: 'stable'
 
 # Default for K3S Version
-version: '1.21.3+k3s1'
+k3s_version: '1.21.3+k3s1'
+
+# Default for K3S Server SAN
+server_san: "k3s.localhost"
 
 # Default for K3S Server Token
-token: "{{ 1000 | random | to_uuid | upper }}"
+server_token: "{{ 1000 | random | to_uuid | upper }}"
 
 # Default for K3S Database Host
 db_host: '127.0.0.1'
@@ -31,3 +34,6 @@ enable_ip_vs: 'false'
 
 # Default for Enable ZFS
 enable_zfs: 'false'
+
+# Default for Enable LVM
+enable_lvm: 'false'

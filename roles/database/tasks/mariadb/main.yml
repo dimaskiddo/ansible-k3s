@@ -1,12 +1,24 @@
 ---
-- include: pip_mariadb.yml
+- include: mariadb_pip.yml
 
-- include: pkg_mariadb.yml
+- include: mariadb_pkg.yml
 
-- include: zfs_mariadb.yml
+- include: mariadb_block.yml
+  when:
+    - enable_zfs or enable_lvm
+
+- include: mariadb_zfs.yml
   when:
     - enable_zfs
 
-- include: secure_mariadb.yml
+- include: mariadb_lvm.yml
+  when:
+    - enable_lvm
 
-- include: db_k3s.yml
+- include: mariadb_mount.yml
+  when:
+    - enable_zfs or enable_lvm
+
+- include: mariadb_secure.yml
+
+- include: mariadb_k3s.yml

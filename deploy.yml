@@ -19,7 +19,7 @@
   roles:
     - master
 
-- hosts: infras:nodes
-  any_errors_fatal: true
-  roles:
-    - agent
+# - hosts: infras:nodes
+#   any_errors_fatal: true
+#   roles:
+#     - agent

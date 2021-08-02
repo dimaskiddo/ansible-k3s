@@ -1,0 +1,63 @@
+---
+- name: Stopping MariaDB Service
+  service:
+    name: mariadb
+    state: stopped
+
+- name: Create MariaDB Backup Directory
+  file:
+    path: /var/lib/mysql.orig~
+    owner: mariadb
+    group: mariadb
+    mode: 0755
+    state: directory
+
+- name: Synchronize MariaDB Directory to Backup Directory
+  synchronize:
+    src: /var/lib/mysql
+    dest: /var/lib/mysql.orig~
+    archive: yes
+    rsync_opts:
+      - "-X"
+
+- name: Purging MariaDB Directory Content
+  shell: "rm -rf /var/lib/mysql/* || true"
+  args:
+    warn: false
+
+- name: Set ZFS Dataset Mountpoint to MariaDB Directory
+  shell: zfs set mountpoint=/var/lib/mysql {{ zfs_pool_name }}/mariadb
+  when:
+    - enable_zfs
+
+- name: Set LVM Mountpoint to MariaDB Directory
+  mount:
+    src: "/dev/{{ vg_name }}/lv-mariadb"
+    path: /var/lib/mysql
+    fstype: xfs
+    opts: defaults,noatime
+    state: mounted
+  when:
+    - enable_lvm
+
+- name: Set Ownership and Permission for MariaDB Directory
+  file:
+    path: /var/lib/mysql
+    owner: mariadb
+    group: mariadb
+    mode: 0755
+    state: directory
+
+- name: Synchronize Backup Directory to MariaDB Directory
+  synchronize:
+    src: /var/lib/mysql.orig~
+    dest: /var/lib/mysql
+    archive: yes
+    rsync_opts:
+      - "-X"
+
+- name: Restarting MariaDB Service
+  service:
+    name: mariadb
+    enabled: yes
+    state: restarted
