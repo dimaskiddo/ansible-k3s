@@ -2,4 +2,5 @@
 - hosts: database
   any_errors_fatal: true
   roles:
-  - role: database
+    - common
+    - database

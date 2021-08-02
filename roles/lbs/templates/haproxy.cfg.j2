@@ -1,0 +1,67 @@
+# Global settings
+#---------------------------------------------------------------------
+global
+    maxconn     20000
+    log         /dev/log local0 info
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    user        haproxy
+    group       haproxy
+    daemon
+
+    # turn on stats unix socket
+    stats socket /var/lib/haproxy/stats
+
+#---------------------------------------------------------------------
+# common defaults that all the 'listen' and 'backend' sections will
+# use if not designated in their block
+#---------------------------------------------------------------------
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          300s
+    timeout server          300s
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 20000
+
+listen stats
+    bind :9000
+    mode http
+    stats enable
+    stats uri /
+
+frontend k3s_api_fe
+    bind :6443
+    default_backend k3s_api_be
+    mode tcp
+    option tcplog
+
+backend k3s_api_be
+    balance source
+    mode tcp
+{% for master_host in groups['masters'] %}
+    server {{ hostvars[master_host].ansible_default_ipv4.address }} {{ hostvars[master_host].ansible_default_ipv4.address }}:6443 check
+{% endfor %}
+
+frontend k3s_db_fe
+    bind :3306
+    default_backend k3s_db_be
+    mode tcp
+    option tcplog
+
+backend k3s_db_be
+    balance source
+    mode tcp
+{% for database_host in groups['database'] %}
+    server {{ hostvars[database_host].ansible_default_ipv4.address }} {{ hostvars[database_host].ansible_default_ipv4.address }}:3306 check
+{% endfor %}

@@ -25,6 +25,14 @@
     timeout: 600
   when: os_upgrade_info.changed
 
+- name: Enable Backports Repository
+  template:
+    src: backports.list.j2
+    dest: /etc/apt/sources.list.d/backports.list
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Install Base Packages
   apt:
     name: "{{ item }}"

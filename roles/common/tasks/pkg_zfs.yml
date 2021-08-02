@@ -1,12 +1,4 @@
 ---
-- name: Enable Backports Repository
-  template:
-    src: backports.list.j2
-    dest: /etc/apt/sources.list.d/backports.list
-    owner: root
-    group: root
-    mode: 0644
-
 - name: Pin ZFS Packages to Use Backports Repository
   template:
     src: backports-zfs.j2
@@ -18,6 +10,7 @@
 - name: Install ZFS Packages
   apt:
     name: "{{ item }}"
+    default_release: "{{ ansible_distribution_release }}-backports"
     force_apt_get: yes
     update_cache: yes
     state: present

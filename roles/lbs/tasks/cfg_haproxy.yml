@@ -1,0 +1,24 @@
+---
+- name: Stopping HAProxy Service
+  service:
+    name: haproxy
+    state: stopped
+
+- name: Backup Existing HAProxy Configuration
+  shell: "mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig~ || true"
+  args:
+    warn: false
+
+- name: Creating HAProxy Configuration for K3S Master
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restarting HAProxy Service
+  service:
+    name: haproxy
+    enabled: yes
+    state: restarted

@@ -1,0 +1,6 @@
+---
+- name: Fail if Operating System is not Supported
+  fail:
+    msg: "Supported Operating System is Debian"
+  when:
+    - ansible_distribution != 'Debian'
