@@ -1,5 +1,5 @@
 ---
-- name: Install Monitoring Packages
+- name: Install Monitoring Tools Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes

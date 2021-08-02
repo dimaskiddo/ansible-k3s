@@ -1,5 +1,5 @@
 ---
-- name: Install Networking Packages
+- name: Install Networking Tools Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
