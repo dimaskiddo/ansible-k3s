@@ -2,4 +2,4 @@
 - hosts: all
   any_errors_fatal: true
   roles:
-  - role: 01-prerequisites
+  - role: prerequisites

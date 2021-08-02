@@ -1,8 +1,0 @@
----
-- include: pip_mariadb.yml
-
-- include: zfs_mariadb.yml
-  when:
-    - enable_zfs
-
-- include: pkg_mariadb.yml

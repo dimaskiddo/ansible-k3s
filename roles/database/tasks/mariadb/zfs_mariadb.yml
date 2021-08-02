@@ -1,0 +1,26 @@
+---
+- name: Stopping MariaDB Service
+  service:
+    name: mariadb
+    state: stopped
+
+- name: Create MariaDB Backup Directory
+  file:
+    path: /var/lib/mariadb.orig~
+    owner: mariadb
+    group: mariadb
+    mode: 0755
+    state: directory
+
+- name: Synchronize MariaDB Directory to Backup Directory
+  synchronize:
+    src: /var/lib/mariadb
+    dest: /var/lib/mariadb.orig~
+    archive: yes
+    rsync_opts:
+      - "-X"
+
+- name: Purging MariaDB Directory Content
+  shell: "rm -rf /var/lib/mariadb/* || true"
+  args:
+    warn: false
