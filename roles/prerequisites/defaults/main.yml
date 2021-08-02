@@ -1,6 +1,0 @@
----
-# Default for Enable IPVS
-enable_ip_vs: 'false'
-
-# Default for Enable ZFS
-enable_zfs: 'false'
