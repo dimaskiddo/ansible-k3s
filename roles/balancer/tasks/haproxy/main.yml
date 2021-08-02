@@ -1,0 +1,4 @@
+---
+- include: haproxy_pkg.yml
+
+- include: haproxy_config.yml

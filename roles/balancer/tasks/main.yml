@@ -1,0 +1,6 @@
+---
+- include: facts.yml
+
+- include: haproxy/main.yml
+
+- include: pkg_clean.yml

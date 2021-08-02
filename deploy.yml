@@ -1,18 +1,18 @@
 ---
-- hosts: database:lbs:masters:infras:nodes
+- hosts: balancer:database:masters:infras:nodes
   any_errors_fatal: true
   roles:
     - common
+
+- hosts: balancer
+  any_errors_fatal: true
+  roles:
+    - balancer
 
 - hosts: database
   any_errors_fatal: true
   roles:
     - database
-
-- hosts: lbs
-  any_errors_fatal: true
-  roles:
-    - lbs
 
 - hosts: masters
   any_errors_fatal: true

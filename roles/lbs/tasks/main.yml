@@ -1,8 +1,0 @@
----
-- include: facts.yml
-
-- include: pkg_haproxy.yml
-
-- include: pkg_clean.yml
-
-- include: cfg_haproxy.yml
