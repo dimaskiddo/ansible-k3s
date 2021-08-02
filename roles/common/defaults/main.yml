@@ -1,0 +1,12 @@
+---
+# Default for Reboot After OS Upgrade
+reboot_upgrade: 'true'
+
+# Default for Enable IPVS
+enable_ip_vs: 'false'
+
+# Default for Enable ZFS
+enable_zfs: 'false'
+
+# Default for Sanoid Version
+sanoid_version: '2.1.0'
