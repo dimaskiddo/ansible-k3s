@@ -10,3 +10,7 @@
     enable_zfs: "{{ enable_zfs | default(default_value, true) }}"
     database_backend: "{{ database_backend | default(default_value, true) }}"
     mariadb_version: "{{ mariadb_version | default(default_value, true) }}"
+    zfs_pool_name: "{{ zfs_pool_name | default(default_value, true) }}"
+    zfs_block_wipe: "{{ zfs_block_wipe if zfs_block_device is defined else 'false' | default(default_value, true) }}"    
+    zfs_pool_wipe: "{{ zfs_pool_wipe | default(default_value, true) }}"
+    zfs_dataset_wipe: "{{ zfs_dataset_wipe | default(default_value, true) }}"

@@ -6,5 +6,7 @@
     update_cache: yes
     state: present
   with_items:
+    - fdisk
+    - gdisk
     - xfsprogs
     - lvm2

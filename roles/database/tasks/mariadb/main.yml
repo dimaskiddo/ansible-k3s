@@ -7,6 +7,4 @@
   when:
     - enable_zfs
 
-- include: svc_mariadb.yml
-
 - include: secure_mariadb.yml

@@ -7,3 +7,15 @@ database_backend: 'mariadb'
 
 # Default for MariaDB Version
 mariadb_version: '10.5'
+
+# Default Value for ZFS Pool Name
+zfs_pool_name: 'data'
+
+# Default Value for ZFS Block Wipe
+zfs_block_wipe: 'false'
+
+# Default Value for ZFS Pool Wipe
+zfs_pool_wipe: 'false'
+
+# Default Value for ZFS Dataset Wipe
+zfs_dataset_wipe: 'false'

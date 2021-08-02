@@ -4,9 +4,98 @@
     name: mariadb
     state: stopped
 
+- name: Stat Block Device for ZFS
+  stat:
+    path: "/dev/{{ zfs_block_device }}"
+  register: zfs_block_stat
+  when:
+    - zfs_block_device is defined
+
+- name: Check Block Device for ZFS
+  parted:
+    device: "/dev/{{ zfs_block_device }}"
+    unit: MiB
+  register: zfs_block_info
+  when:
+    - zfs_block_device is defined
+    - zfs_block_stat.stat.exists
+
+- name: Fail if Block Device for ZFS is not Empty
+  fail:
+    msg: "Block Device for ZFS is not Empty, Please Clean The Block Device Manually!"
+  when:
+    - zfs_block_info.partitions | length > 0
+    - not zfs_block_wipe
+
+- name: Clean Block Device for ZFS if 'zfs_block_wipe' is true
+  parted:
+    device: "/dev/{{ zfs_block_device }}"
+    number: "{{ item.num }}"
+    state: absent
+  with_items:
+    - "{{ zfs_block_info.partitions }}"
+  when:
+    - zfs_block_info.partitions | length > 0
+    - zfs_block_wipe
+
+- name: Create Block Device Partition for ZFS
+  parted:
+    device: "/dev/{{ zfs_block_device }}"
+    name: "{{ 1000 | random | to_uuid | upper }}"
+    number: 1
+    label: gpt
+    part_type: primary
+    part_start: 0%
+    part_end: 100%
+    state: present
+
+- name: Check ZFS Pool Lists
+  shell: zpool list
+  register: zfs_pool_lists
+
+- name: Fail if ZFS Pool is already exists
+  fail:
+    msg: "ZFS Pool already exists, Please Remove The Pool Manually!"
+  when:
+    - zfs_pool_lists.stdout.find(zfs_pool_name) != -1
+    - not zfs_pool_wipe
+
+- name: Clean ZFS Pool if 'zfs_pool_wipe' is true
+  shell: zpool destroy -f {{ zfs_pool_name }}
+  when:
+    - zfs_pool_lists.stdout.find(zfs_pool_name) != -1
+    - zfs_pool_wipe
+
+- name: Create ZFS Pool
+  shell: zpool create {{ zfs_pool_name }} -O compression=lz4 -O atime=off -O mountpoint=none -o ashift=12 /dev/{{ zfs_block_device }}1
+  when:
+    - zfs_pool_lists.stdout.find(zfs_pool_name) == -1
+
+- name: Check ZFS Dataset Lists
+  shell: zfs list
+  register: zfs_dataset_lists
+
+- name: Fail if ZFS Dataset already exists
+  fail:
+    msg: "ZFS Dataset already exists, Please Remove The Dataset Manually!"
+  when:
+    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mariadb") != -1
+    - not zfs_dataset_wipe
+
+- name: Clean ZFS Dataset if 'zfs_dataset_wipe' is true
+  shell: zfs destroy -fR {{ zfs_pool_name }}/mariadb
+  when:
+    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mariadb") != -1
+    - zfs_dataset_wipe
+
+- name: Create ZFS Dataset
+  shell: zfs create {{ zfs_pool_name }}/mariadb
+  when:
+    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mariadb") == -1
+
 - name: Create MariaDB Backup Directory
   file:
-    path: /var/lib/mariadb.orig~
+    path: /var/lib/mysql.orig~
     owner: mariadb
     group: mariadb
     mode: 0755
@@ -14,13 +103,38 @@
 
 - name: Synchronize MariaDB Directory to Backup Directory
   synchronize:
-    src: /var/lib/mariadb
-    dest: /var/lib/mariadb.orig~
+    src: /var/lib/mysql
+    dest: /var/lib/mysql.orig~
     archive: yes
     rsync_opts:
       - "-X"
 
 - name: Purging MariaDB Directory Content
-  shell: "rm -rf /var/lib/mariadb/* || true"
+  shell: "rm -rf /var/lib/mysql/* || true"
   args:
     warn: false
+
+- name: Set ZFS Dataset Mountpoint to MariaDB Directory
+  shell: zfs set mountpoint=/var/lib/mysql {{ zfs_pool_name }}/mariadb
+
+- name: Set Ownership and Permission for MariaDB Directory in ZFS
+  file:
+    path: /var/lib/mysql
+    owner: mariadb
+    group: mariadb
+    mode: 0755
+    state: directory
+
+- name: Synchronize Backup Directory to MariaDB Directory in ZFS
+  synchronize:
+    src: /var/lib/mysql.orig~
+    dest: /var/lib/mysql
+    archive: yes
+    rsync_opts:
+      - "-X"
+
+- name: Restarting MariaDB Service
+  service:
+    name: mariadb
+    enabled: yes
+    state: restarted
