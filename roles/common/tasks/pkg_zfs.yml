@@ -14,9 +14,9 @@
     update_cache: yes
     state: present
   with_items:
+    - linux-headers-cloud-amd64
+    - linux-image-cloud-amd64
     - dpkg-dev
-    - linux-headers-amd64
-    - linux-image-amd64
 
 - name: Install ZFS Packages
   apt:
