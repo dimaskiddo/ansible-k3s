@@ -1,4 +1,4 @@
 #!/bin/bash -e
 
 echo "Installing K3S Server"
-curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL='{{ k3s_channel }}' INSTALL_K3S_VERSION='{{ k3s_version }}' INSTALL_K3S_SKIP_ENABLE=true INSTALL_K3S_SKIP_START=true
+curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL='{{ k3s_channel }}' INSTALL_K3S_VERSION='{{ k3s_version }}' INSTALL_K3S_SKIP_ENABLE=true INSTALL_K3S_SKIP_START=true sh -

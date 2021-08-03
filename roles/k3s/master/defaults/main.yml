@@ -47,6 +47,9 @@ disable_local_storage: 'false'
 # Default for K3S Disable Flannel
 disable_flannel: 'false'
 
+# Default for K3S Cluster CIDR
+cluster_cidr: '172.30.0.0/16'
+
 # Default for K3S Pods-per-Core
 pods_per_core: 10
 
