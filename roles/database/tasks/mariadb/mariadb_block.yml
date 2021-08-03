@@ -23,12 +23,7 @@
     - not block_wipe
 
 - name: Clean Block Device for MariaDB Data Storage if 'block_wipe' is true
-  parted:
-    device: "/dev/{{ block_device }}"
-    number: "{{ item.num }}"
-    state: absent
-  with_items:
-    - "{{ block_info.partitions }}"
+  command: wipefs -a /dev/{{ block_device }} 
   when:
     - block_info.partitions | length > 0
     - block_wipe
