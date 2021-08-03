@@ -29,7 +29,7 @@ ExecStart=/usr/local/bin/k3s server \
 {% if disable_traefik %}
     --disable traefik \
 {% endif -%}
-{% if disable_sevicelb %}
+{% if disable_servicelb %}
     --disable servicelb \
 {% endif -%}
 {% if disable_coredns %}

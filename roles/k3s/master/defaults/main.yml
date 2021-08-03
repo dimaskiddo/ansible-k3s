@@ -29,6 +29,24 @@ db_password: 'k3s#Passw0rd'
 # Default for K3S Database Name
 db_name: 'db_k3s'
 
+# Default for K3S Disable Traefik
+disable_traefik: 'false'
+
+# Default for K3S Disable ServiceLB
+disable_servicelb: 'false'
+
+# Default for K3S Disable CoreDNS
+disable_coredns: 'false'
+
+# Default for K3S Disable Metric Server
+disable_metric_server: 'false'
+
+# Default for K3S Disable Local Storage
+disable_local_storage: 'false'
+
+# Default for K3S Disable Flannel
+disable_flannel: 'false'
+
 # Default for Enable IPVS
 enable_ip_vs: 'false'
 
