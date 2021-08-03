@@ -32,7 +32,7 @@
     mode: 0755
 
 - name: Running PIP Installer
-  command: "python2 /tmp/get-pip.py"
+  shell: python2 /tmp/get-pip.py
 
 - name: Remove PIP Installer
   file:

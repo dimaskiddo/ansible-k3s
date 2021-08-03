@@ -17,6 +17,9 @@ db_password: 'k3s#Passw0rd'
 # Value for K3S Database Name
 db_name: 'db_k3s'
 
+# Value for Block Device
+#block_device: 'vdb'
+
 # Value for Block Wipe
 #block_wipe: 'false'
 

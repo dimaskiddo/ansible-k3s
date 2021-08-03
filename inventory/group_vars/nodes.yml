@@ -20,6 +20,9 @@ server_token: "THIS_IS_YOUR_SERVER_TOKEN"
 # Value for IPVS Mode
 #ip_vs_mode: 'lc'
 
+# Value for Block Device
+#block_device: 'vdb'
+
 # Value for Block Wipe
 #block_wipe: 'false'
 
