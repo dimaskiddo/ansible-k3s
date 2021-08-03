@@ -1,4 +1,7 @@
 ---
+# Default for Helm Version
+helm_version: '3.6.3'
+
 # Value for K3S Channel
 k3s_channel: 'stable'
 

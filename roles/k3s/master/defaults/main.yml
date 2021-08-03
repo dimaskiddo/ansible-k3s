@@ -5,6 +5,9 @@ node_ip: "{{ ansible_default_ipv4.address }}"
 # Default for Node Name
 node_name: "{{ ansible_hostname }}"
 
+# Default for Helm Version
+helm_version: '3.6.3'
+
 # Default for K3S Channel
 k3s_channel: 'stable'
 

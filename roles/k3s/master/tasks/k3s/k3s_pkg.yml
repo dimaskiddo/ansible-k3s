@@ -1,4 +1,58 @@
 ---
+- name: Download Helm Distribution Release Archive
+  get_url:
+    url: "https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz"
+    dest: /tmp/helm.tar.gz
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Remove Existing Helm Installation
+  file:
+    path: /usr/share/helm
+    state: absent
+
+- name: Create Helm Installation Directory
+  file:
+    path: /usr/share/helm
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Installing Helm from Distribution Release Archive
+  unarchive:
+    src: /tmp/helm.tar.gz
+    dest: /usr/share/helm
+    owner: root
+    group: root
+    extra_opts:
+      - '--strip-components=1'
+    creates: /usr/share/helm/helm
+    remote_src: yes
+
+- name: Give Executable Permission for Installed Helm Binary
+  file:
+    path: /usr/share/helm/helm
+    owner: root
+    group: root
+    mode: 0755
+    state: file
+
+- name: Linking Helm Binary to Local Binary Directory
+  file:
+    src: /usr/share/helm/helm
+    dest: /usr/local/bin/helm
+    owner: root
+    group: root
+    mode: 0755
+    state: link
+
+- name: Removing Helm Distribution Release Archive
+  file:
+    path: /tmp/helm.tar.gz
+    state: absent
+
 - name: Create K3S Installer File from Template
   template:
     src: k3s-install.sh.j2
