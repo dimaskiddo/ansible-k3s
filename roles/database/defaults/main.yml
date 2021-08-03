@@ -9,13 +9,13 @@ database_backend: 'mariadb'
 mariadb_version: '10.5'
 
 # Default for MariaDB Root Password
-mariadb_root_password: 'root#P@ssw0rd'
+mariadb_root_password: 'root#Passw0rd'
 
 # Default for K3S Database User
 db_user: 'k3s'
 
 # Default for K3S Database Password
-db_password: 'k3s#P@ssw0rd'
+db_password: 'k3s#Passw0rd'
 
 # Default for K3S Database Name
 db_name: 'db_k3s'

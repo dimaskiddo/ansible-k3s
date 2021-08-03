@@ -1,2 +1,4 @@
 ---
 - include: facts.yml
+
+- include: k3s/main.yml

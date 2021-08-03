@@ -8,15 +8,6 @@
     reload: no
     state: present
 
-- name: Set Sysctl for 'net.ipv4.ip_forward'
-  sysctl:
-    name: net.ipv4.ip_forward
-    value: 1
-    sysctl_file: /etc/sysctl.conf
-    sysctl_set: yes
-    reload: no
-    state: present
-
 - name: Set Sysctl for 'net.core.somaxconn'
   sysctl:
     name: net.core.somaxconn
@@ -26,10 +17,37 @@
     reload: no
     state: present
 
-- name: Set Sysctl for 'net.netfilter.nf_conntrack_max'
+- name: Set Sysctl for 'net.ipv6.conf.default.disable_ipv6'
   sysctl:
-    name: net.netfilter.nf_conntrack_max
-    value: 524288
+    name: net.ipv6.conf.default.disable_ipv6
+    value: 1
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
+- name: Set Sysctl for 'net.ipv6.conf.all.disable_ipv6'
+  sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: 1
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
+- name: Set Sysctl for 'net.ipv6.conf.lo.disable_ipv6'
+  sysctl:
+    name: net.ipv6.conf.lo.disable_ipv6
+    value: 1
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
+- name: Set Sysctl for 'net.ipv6.conf.eth0.disable_ipv6'
+  sysctl:
+    name: net.ipv6.conf.eth0.disable_ipv6
+    value: 1
     sysctl_file: /etc/sysctl.conf
     sysctl_set: yes
     reload: no

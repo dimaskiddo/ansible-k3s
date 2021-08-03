@@ -1,0 +1,59 @@
+[Unit]
+Description=Lightweight Kubernetes
+Documentation=https://k3s.io
+After=network-online.target
+
+[Service]
+Type=notify
+KillMode=process
+Delegate=yes
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitCORE=0
+LimitNPROC=infinity
+LimitMEMLOCK=infinity
+LimitNOFILE=infinity
+TasksMax=infinity
+TimeoutStartSec=0
+Restart=always
+RestartSec=5s
+ExecStartPre=-/sbin/modprobe br_netfilter
+ExecStartPre=-/sbin/modprobe overlay
+ExecStart=/usr/local/bin/k3s server \
+    --node-name {{ node_name }} \
+    --node-ip {{ node_ip }} \
+    --advertise-address {{ node_ip }} \
+{% if server_san != "" %}
+    --tls-san {{ server_san }} \
+{% endif -%}
+{% if disable_traefik %}
+    --disable traefik \
+{% endif -%}
+{% if disable_sevicelb %}
+    --disable servicelb \
+{% endif -%}
+{% if disable_coredns %}
+    --disable coredns \
+{% endif -%}
+{% if disable_metric_server %}
+    --disable metrics-server \
+{% endif -%}
+{% if disable_local_storage %}
+    --disable local-storage \
+{% endif -%}
+{% if disable_flannel %}
+    --disable-network-policy \
+    --flannel-backend none \
+{% endif %}
+    --kubelet-arg allowed-unsafe-sysctls=net.core.somaxconn \
+    --kubelet-arg pods-per-core=10 \
+    --kube-proxy-arg metrics-bind-address=0.0.0.0 \
+{% if enable_ip_vs %}
+    --kube-proxy-arg proxy-mode=ipvs \
+    --kube-proxy-arg ipvs-scheduler={{ ip_vs_mode }} \
+{% endif %}
+    --datastore-endpoint mysql://{{ db_user }}:{{ db_password }}@tcp({{ db_host }}:3306)/{{ db_name }} \
+    -t {{ server_token }}'
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,5 @@
 ---
-- hosts: database:lbs:masters:infras:nodes
+- hosts: balancer:database:masters:infras:nodes
   any_errors_fatal: true
   roles:
   - role: common

@@ -1,0 +1,22 @@
+---
+- include: k3s_block.yml
+  when:
+    - enable_zfs or enable_lvm
+
+- include: k3s_zfs.yml
+  when:
+    - enable_zfs
+
+- include: k3s_lvm.yml
+  when:
+    - enable_lvm
+
+- include: k3s_mount.yml
+  when:
+    - enable_zfs or enable_lvm
+
+- include: k3s_pkg.yml
+
+- include: k3s_sysctl.yml
+
+- include: k3s_svc.yml

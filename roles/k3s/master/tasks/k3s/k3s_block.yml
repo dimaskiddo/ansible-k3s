@@ -1,0 +1,61 @@
+---
+- name: Stat Block Device for K3S Data Storage
+  stat:
+    path: "/dev/{{ block_device }}"
+  register: block_stat
+  when:
+    - block_device is defined
+
+- name: Check Block Device for K3S Data Storage
+  parted:
+    device: "/dev/{{ block_device }}"
+    unit: MiB
+  register: block_info
+  when:
+    - block_device is defined
+    - block_stat.stat.exists
+
+- name: Fail if Block Device for K3S Data Storage is not Empty
+  fail:
+    msg: "Block Device for K3S Data Storage is not Empty, Please Clean The Block Device Manually!"
+  when:
+    - block_info.partitions | length > 0
+    - not block_wipe
+
+- name: Clean Block Device for K3S Data Storage if 'block_wipe' is true
+  parted:
+    device: "/dev/{{ block_device }}"
+    number: "{{ item.num }}"
+    state: absent
+  with_items:
+    - "{{ block_info.partitions }}"
+  when:
+    - block_info.partitions | length > 0
+    - block_wipe
+
+- name: Create Block Device Partition for K3S Data Storage (ZFS)
+  parted:
+    device: "/dev/{{ block_device }}"
+    name: "{{ 1000 | random | to_uuid | upper }}"
+    number: 1
+    label: gpt
+    part_type: primary
+    part_start: 0%
+    part_end: 100%
+    state: present
+  when:
+    - enable_zfs
+
+- name: Create Block Device Partition for K3S Data Storage (LVM)
+  parted:
+    device: "/dev/{{ block_device }}"
+    name: "{{ 1000 | random | to_uuid | upper }}"
+    number: 1
+    label: gpt
+    flags: [ lvm ]
+    part_type: primary
+    part_start: 0%
+    part_end: 100%
+    state: present
+  when:
+    - enable_lvm

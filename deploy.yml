@@ -1,25 +1,22 @@
 ---
-- hosts: balancer:database:masters:infras:nodes
-  any_errors_fatal: true
-  roles:
-    - common
+- include: prerequisites.yml
 
 - hosts: balancer
   any_errors_fatal: true
   roles:
-    - balancer
+    - role: balancer
 
 - hosts: database
   any_errors_fatal: true
   roles:
-    - database
+    - role: database
 
 - hosts: masters
   any_errors_fatal: true
   roles:
-    - master
+    - role: k3s/master
 
 # - hosts: infras:nodes
 #   any_errors_fatal: true
 #   roles:
-#     - agent
+#     - role: k3s/node

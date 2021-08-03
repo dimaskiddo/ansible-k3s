@@ -18,8 +18,14 @@
     db_password: "{{ db_password | default(default_value, true) }}"
     db_name: "{{ db_name | default(default_value, true) }}"
     enable_ip_vs: "{{ enable_ip_vs | default(default_value, true) }}"
+    ip_vs_mode: "{{ ip_vs_mode | default(default_value, true) }}"
+    block_wipe: "{{ block_wipe if block_device is defined else 'false' | default(default_value, true) }}"
     enable_zfs: "{{ enable_zfs | default(default_value, true) }}"
+    zfs_pool_name: "{{ zfs_pool_name | default(default_value, true) }}"
+    zfs_pool_wipe: "{{ zfs_pool_wipe | default(default_value, true) }}"
+    zfs_dataset_wipe: "{{ zfs_dataset_wipe | default(default_value, true) }}"
     enable_lvm: "{{ enable_lvm | default(default_value, true) }}"
+    lvm_vg_name: "{{ lvm_vg_name | default(default_value, true) }}"
 
 - name: Make Sure 'enable_lvm' is false When 'enable_zfs' is true
   set_fact:

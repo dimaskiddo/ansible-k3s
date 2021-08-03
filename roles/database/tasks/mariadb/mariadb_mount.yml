@@ -25,18 +25,19 @@
   args:
     warn: false
 
-- name: Set ZFS Dataset Mountpoint to MariaDB Directory
+- name: Set MariaDB Data Storage Mountpoint to MariaDB Directory (ZFS)
   shell: zfs set mountpoint=/var/lib/mysql {{ zfs_pool_name }}/mariadb
   when:
     - enable_zfs
 
-- name: Set LVM Mountpoint to MariaDB Directory
+- name: Set MariaDB Data Storage Mountpoint to MariaDB Directory (LVM)
   mount:
-    src: "/dev/{{ vg_name }}/lv-mariadb"
+    src: "/dev/{{ lvm_vg_name }}/lv-mariadb"
     path: /var/lib/mysql
     fstype: xfs
     opts: defaults,noatime
     state: mounted
+    backup: yes
   when:
     - enable_lvm
 
@@ -56,7 +57,7 @@
     rsync_opts:
       - "-X"
 
-- name: Restarting MariaDB Service
+- name: Enabling and Restarting MariaDB Service
   service:
     name: mariadb
     enabled: yes
