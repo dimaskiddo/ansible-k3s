@@ -1,5 +1,13 @@
 ---
-- name: Create Kubernetes Configuration Directory on {{ ansible_user }}
+- name: Change Kubernetes Configuration File Permission
+  file:
+    path: /etc/rancher/k3s/k3s.yaml
+    owner: root
+    group: root
+    mode: 0644
+    state: file
+
+- name: Create Kubernetes Configuration on '{{ ansible_user }}' User Home Directory
   file:
     path: ~{{ ansible_user }}/.kube
     owner: "{{ ansible_user }}"
@@ -7,13 +15,13 @@
     mode: 0750
     state: directory
 
-- name: Copy K3S Kubernetes Configuration File to {{ ansible_user }} Home Directory
+- name: Copy K3S Kubernetes Configuration to '{{ ansible_user }}' User Home Directory
   copy:
     src: /etc/rancher/k3s/k3s.yaml
     dest: ~{{ ansible_user }}/.kube/config
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0600
+    mode: 0644
     remote_src: yes
 
 - name: Replace K3S Kubernetes Configuration API Server from https://localhost:6443 to https://{{ node_ip }}:6443
