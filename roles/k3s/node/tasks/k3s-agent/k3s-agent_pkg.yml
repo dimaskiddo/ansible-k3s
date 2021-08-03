@@ -1,5 +1,5 @@
 ---
-- name: Create K3S Installer File
+- name: Create K3S Agent Installer File from Template
   template:
     src: k3s-install.sh.j2
     dest: /tmp/k3s-install.sh
@@ -7,10 +7,10 @@
     group: root
     mode: 0755
 
-- name: Running K3S Installer
+- name: Running K3S Agent Installer
   command: /tmp/k3s-install.sh
 
-- name: Remove K3S Installer File
+- name: Remove K3S Agent Installer File
   file:
     path: /tmp/k3s-install.sh
     state: absent

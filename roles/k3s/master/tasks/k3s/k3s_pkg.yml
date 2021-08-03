@@ -1,5 +1,5 @@
 ---
-- name: Create K3S Installer File
+- name: Create K3S Installer File from Template
   template:
     src: k3s-install.sh.j2
     dest: /tmp/k3s-install.sh
