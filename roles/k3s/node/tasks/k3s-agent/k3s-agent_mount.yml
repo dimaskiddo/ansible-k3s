@@ -1,0 +1,24 @@
+---
+- name: Create K3S Agent Data Directory
+  file:
+    path: /var/lib/rancher
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Set K3S Agent Data Storage Mountpoint to K3S Agent Data Directory (ZFS)
+  shell: zfs set mountpoint=/var/lib/rancher {{ zfs_pool_name }}/k3s
+  when:
+    - enable_zfs
+
+- name: Set K3S Agent Data Storage Mountpoint to K3S Agent Data Directory (LVM)
+  mount:
+    src: "/dev/{{ lvm_vg_name }}/lv-k3s"
+    path: /var/lib/rancher
+    fstype: xfs
+    opts: noatime
+    state: mounted
+    backup: yes
+  when:
+    - enable_lvm

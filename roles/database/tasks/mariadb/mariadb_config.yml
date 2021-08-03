@@ -1,0 +1,8 @@
+---
+- name: Create Override MariaDB Configuration
+  template:
+    src: 99-override.cnf.j2
+    dest: /etc/mysql/mariadb.conf.d/99-override.cnf
+    owner: root
+    group: root
+    mode: 0644

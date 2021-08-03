@@ -1,0 +1,20 @@
+---
+- name: Create K3S Agent Service File
+  template:
+    src: k3s-agent.service.j2
+    dest: /etc/systemd/system/k3s-agent.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload SystemD to Load K3S Agent Service File
+  systemd:
+    name: k3s-agent
+    daemon_reload: yes
+    state: stopped
+
+- name: Enabling and Restarting K3S Agent Service
+  service:
+    name: k3s-agent
+    enabled: yes
+    state: restarted

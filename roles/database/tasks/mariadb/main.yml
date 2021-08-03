@@ -3,6 +3,8 @@
 
 - include: mariadb_pkg.yml
 
+- include: mariadb_config.yml
+
 - include: mariadb_block.yml
   when:
     - enable_zfs or enable_lvm

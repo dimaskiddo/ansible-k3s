@@ -1,0 +1,22 @@
+---
+- include: k3s-agent_block.yml
+  when:
+    - enable_zfs or enable_lvm
+
+- include: k3s-agent_zfs.yml
+  when:
+    - enable_zfs
+
+- include: k3s-agent_lvm.yml
+  when:
+    - enable_lvm
+
+- include: k3s-agent_mount.yml
+  when:
+    - enable_zfs or enable_lvm
+
+- include: k3s-agent_pkg.yml
+
+- include: k3s-agent_sysctl.yml
+
+- include: k3s-agent_svc.yml
