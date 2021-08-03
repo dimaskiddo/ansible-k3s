@@ -1,9 +1,10 @@
 ---
 - name: Fail if Operating System is not Supported
   fail:
-    msg: "Supported Operating System is Debian"
+    msg: "Supported Operating System is Debian 64-bit"
   when:
     - ansible_distribution != 'Debian'
+    - ansible_architecture != 'x86_64'
 
 - name: Set Facts
   set_fact:
