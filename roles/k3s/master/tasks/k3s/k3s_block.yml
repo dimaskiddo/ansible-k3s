@@ -23,10 +23,7 @@
     - not block_wipe
 
 - name: Clean Block Device for K3S Data Storage if 'block_wipe' is true
-  parted:
-    device: "/dev/{{ block_device }}"
-    number: "{{ item.num }}"
-    state: absent
+  shell: wipefs -a /dev/{{ block_device }}
   with_items:
     - "{{ block_info.partitions }}"
   when:

@@ -13,12 +13,7 @@
     state: directory
 
 - name: Synchronize MariaDB Directory to Backup Directory
-  synchronize:
-    src: /var/lib/mysql
-    dest: /var/lib/mysql.orig~
-    archive: yes
-    rsync_opts:
-      - "-X"
+  shell: rsync -avX /var/lib/mysql /var/lib/mysql.orig~
 
 - name: Purging MariaDB Directory Content
   shell: "rm -rf /var/lib/mysql/* || true"
@@ -50,12 +45,7 @@
     state: directory
 
 - name: Synchronize Backup Directory to MariaDB Directory
-  synchronize:
-    src: /var/lib/mysql.orig~
-    dest: /var/lib/mysql
-    archive: yes
-    rsync_opts:
-      - "-X"
+  shell: rsync -avX /var/lib/mysql.orig~ /var/lib/mysql
 
 - name: Enabling and Restarting MariaDB Service
   service:
