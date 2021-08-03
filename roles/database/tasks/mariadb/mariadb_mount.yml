@@ -7,8 +7,8 @@
 - name: Create MariaDB Backup Directory
   file:
     path: /var/lib/mysql.orig~
-    owner: mariadb
-    group: mariadb
+    owner: mysql
+    group: mysql
     mode: 0755
     state: directory
 
@@ -44,8 +44,8 @@
 - name: Set Ownership and Permission for MariaDB Directory
   file:
     path: /var/lib/mysql
-    owner: mariadb
-    group: mariadb
+    owner: mysql
+    group: mysql
     mode: 0755
     state: directory
 
