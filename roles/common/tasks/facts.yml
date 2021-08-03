@@ -5,12 +5,3 @@
   when:
     - ansible_distribution != 'Debian'
     - ansible_architecture != 'x86_64'
-
-- name: Set Facts
-  set_fact:
-    node_ip: "{{ node_ip | default(default_value, true) }}"
-    reboot_upgrade: "{{ reboot_upgrade | default(default_value, true) }}"
-    enable_ip_vs: "{{ enable_ip_vs | default(default_value, true) }}"
-    enable_zfs: "{{ enable_zfs | default(default_value, true) }}"
-    enable_lvm: "{{ enable_lvm | default(default_value, true) }}"
-    sanoid_version: "{{ sanoid_version | default(default_value, true) }}"
