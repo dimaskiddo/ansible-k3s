@@ -1,0 +1,72 @@
+---
+# Value for K3S Channel
+k3s_channel: 'stable'
+
+# Value for K3S Version
+k3s_version: 'v1.21.3+k3s1'
+
+# Value for K3S Server SAN
+server_san: ""
+
+# Value for K3S Server Token
+server_token: "THIS_IS_YOUR_SERVER_TOKEN"
+
+# Value for K3S Database Host
+db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"
+
+# Value for K3S Database User
+db_user: 'k3s'
+
+# Value for K3S Database Password
+db_password: 'k3s#Passw0rd'
+
+# Value for K3S Database Name
+db_name: 'db_k3s'
+
+# Value for K3S Disable Traefik
+#disable_traefik: 'false'
+
+# Value for K3S Disable ServiceLB
+#disable_servicelb: 'false'
+
+# Value for K3S Disable CoreDNS
+#disable_coredns: 'false'
+
+# Value for K3S Disable Metric Server
+#disable_metric_server: 'false'
+
+# Value for K3S Disable Local Storage
+#disable_local_storage: 'false'
+
+# Value for K3S Disable Flannel
+#disable_flannel: 'false'
+
+# Value for K3S Pods-per-Core
+#pods_per_core: 10
+
+# Value for Enable IPVS
+#enable_ip_vs: 'false'
+
+# Value for IPVS Mode
+#ip_vs_mode: 'lc'
+
+# Value for Block Wipe
+#block_wipe: 'false'
+
+# Value for Enable ZFS
+#enable_zfs: 'false'
+
+# Value for ZFS Pool Name
+#zfs_pool_name: 'data'
+
+# Value for ZFS Pool Wipe
+#zfs_pool_wipe: 'false'
+
+# Value for ZFS Dataset Wipe
+#zfs_dataset_wipe: 'false'
+
+# Value for Enable LVM
+#enable_lvm: 'false'
+
+# Value for LVM Volume Group Name
+#lvm_vg_name: 'vg-data'

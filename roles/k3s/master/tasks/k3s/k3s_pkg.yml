@@ -8,7 +8,7 @@
     mode: 0755
 
 - name: Running K3S Installer
-  shell: /tmp/k3s-install.sh
+  command: /tmp/k3s-install.sh
 
 - name: Remove K3S Installer File
   file:

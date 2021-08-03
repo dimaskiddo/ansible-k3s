@@ -15,7 +15,7 @@ k3s_version: 'v1.21.3+k3s1'
 server_san: ""
 
 # Default for K3S Server Token
-server_token: "{{ 1000 | random | to_uuid | upper }}"
+server_token: "THIS_IS_YOUR_SERVER_TOKEN"
 
 # Default for K3S Database Host
 db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"

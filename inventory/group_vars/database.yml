@@ -1,0 +1,39 @@
+---
+# Value for Database Backend
+database_backend: 'mariadb'
+
+# Value for MariaDB Version
+mariadb_version: '10.5'
+
+# Value for MariaDB Root Password
+mariadb_root_password: 'root#Passw0rd'
+
+# Value for K3S Database User
+db_user: 'k3s'
+
+# Value for K3S Database Password
+db_password: 'k3s#Passw0rd'
+
+# Value for K3S Database Name
+db_name: 'db_k3s'
+
+# Value for Block Wipe
+#block_wipe: 'false'
+
+# Value for Enable ZFS
+#enable_zfs: 'false'
+
+# Value for ZFS Pool Name
+#zfs_pool_name: 'data'
+
+# Value for ZFS Pool Wipe
+#zfs_pool_wipe: 'false'
+
+# Value for ZFS Dataset Wipe
+#zfs_dataset_wipe: 'false'
+
+# Value for Enable LVM
+#enable_lvm: 'false'
+
+# Value for LVM Volume Group Name
+#lvm_vg_name: 'vg-data'
