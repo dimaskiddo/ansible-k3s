@@ -1,5 +1,5 @@
 ---
-- include: prerequisites.yml
+- import_playbook: prerequisites.yml
 
 - hosts: balancer
   any_errors_fatal: true

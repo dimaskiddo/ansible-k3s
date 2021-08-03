@@ -1,17 +1,12 @@
 ---
 - name: Check MariaDB Root Password is set
-  shell: mysql -u root -e "quit"
+  command: mysql -u root -e "quit"
   changed_when: false
   ignore_errors: true
   register: mariadb_root_init
 
-- name: MariaDB Disable Root Plugin 'unix_socket'
-  shell: mysql -u root -e "UPDATE mysql.user SET plugin = '' WHERE user = 'root'; FLUSH PRIVILEGES;"
-  when:
-    - mariadb_root_init.rc == 0
-
 - name: MariaDB Disable Root Remote Login
-  shell: mysql -u root -e "DELETE FROM mysql.user WHERE user='root' AND host NOT IN ('localhost', '127.0.0.1', '::1');"
+  command: mysql -u root -e "DELETE FROM mysql.user WHERE user='root' AND host NOT IN ('localhost', '127.0.0.1', '::1');"
   when: 
     - mariadb_root_init.rc == 0
 
@@ -46,4 +41,4 @@
     state: absent
 
 - name: MariaDB Flush Priviliges
-  shell: mysql -u root -p{{ mariadb_root_password }} -e "FLUSH PRIVILEGES"
+  command: mysql -u root -p{{ mariadb_root_password }} -e "FLUSH PRIVILEGES"
