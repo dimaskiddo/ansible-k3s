@@ -8,5 +8,5 @@
   with_items:
     - htop
     - iftop
-    - iostat
+    - sysstat
     - nmon
