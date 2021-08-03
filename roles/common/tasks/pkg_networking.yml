@@ -11,6 +11,6 @@
     - traceroute
     - telnet
     - netcat
-    - conntrack-tools
+    - conntrack
     - iptables-services
     - bridge-utils
