@@ -1,1 +1,48 @@
 ---
+# Default for Node IP
+node_ip: "{{ ansible_default_ipv4.address }}"
+
+# Default for Node Name
+node_name: "{{ ansible_hostname }}"
+
+# Default for K3S Channel
+k3s_channel: 'stable'
+
+# Default for K3S Version
+k3s_version: 'v1.21.3+k3s1'
+
+# Default for K3S Server URL
+server_url: "https://{{ hostvars[groups['balancer'][0]]['node_ip'] }}:6443"
+
+# Default for K3S Server Token
+server_token: "{{ 1000 | random | to_uuid | upper }}"
+
+# Default for K3S Pods-per-Core
+pods_per_core: 10
+
+# Default for Enable IPVS
+enable_ip_vs: 'false'
+
+# Default for IPVS Mode
+ip_vs_mode: 'lc'
+
+# Default for Block Wipe
+block_wipe: 'false'
+
+# Default for Enable ZFS
+enable_zfs: 'false'
+
+# Default for ZFS Pool Name
+zfs_pool_name: 'data'
+
+# Default for ZFS Pool Wipe
+zfs_pool_wipe: 'false'
+
+# Default for ZFS Dataset Wipe
+zfs_dataset_wipe: 'false'
+
+# Default for Enable LVM
+enable_lvm: 'false'
+
+# Default for LVM Volume Group Name
+lvm_vg_name: 'vg-data'

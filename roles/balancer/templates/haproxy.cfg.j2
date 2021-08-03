@@ -40,19 +40,6 @@ listen stats
     stats enable
     stats uri /
 
-frontend k3s_db_fe
-    bind :3306
-    default_backend k3s_db_be
-    mode tcp
-    option tcplog
-
-backend k3s_db_be
-    balance source
-    mode tcp
-{% for database_host in groups['database'] %}
-    server {{ hostvars[database_host].node_ip }} {{ hostvars[database_host].node_ip }}:3306 check
-{% endfor %}
-
 frontend k3s_api_fe
     bind :6443
     default_backend k3s_api_be
@@ -62,6 +49,6 @@ frontend k3s_api_fe
 backend k3s_api_be
     balance leastconn
     mode tcp
-{% for master_host in groups['masters'] %}
-    server {{ hostvars[master_host].node_ip }} {{ hostvars[master_host].node_ip }}:6443 check
+{% for master in groups['masters'] %}
+    server {{ hostvars[master].node_ip }} {{ hostvars[master].node_ip }}:6443 check
 {% endfor %}

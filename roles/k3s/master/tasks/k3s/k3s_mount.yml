@@ -17,7 +17,7 @@
     src: "/dev/{{ lvm_vg_name }}/lv-k3s"
     path: /var/lib/rancher
     fstype: xfs
-    opts: defaults,noatime
+    opts: noatime
     state: mounted
     backup: yes
   when:

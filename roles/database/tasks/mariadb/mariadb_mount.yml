@@ -35,7 +35,7 @@
     src: "/dev/{{ lvm_vg_name }}/lv-mariadb"
     path: /var/lib/mysql
     fstype: xfs
-    opts: defaults,noatime
+    opts: noatime
     state: mounted
     backup: yes
   when:
