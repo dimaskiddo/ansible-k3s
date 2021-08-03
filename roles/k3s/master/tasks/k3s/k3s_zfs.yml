@@ -17,7 +17,7 @@
     - zfs_pool_wipe
 
 - name: Create ZFS Pool
-  command: zpool create {{ zfs_pool_name }} -O compression=lz4 -O atime=off -O mountpoint=none -o ashift=12 /dev/{{ block_device }}1
+  command: zpool create {{ zfs_pool_name }} -O compression=lz4 -O atime=off -O mountpoint=none -o ashift=12 -f /dev/{{ block_device }}1
   when:
     - zfs_pool_lists.stdout.find(zfs_pool_name) == -1
 
