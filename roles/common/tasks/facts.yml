@@ -5,3 +5,7 @@
   when:
     - ansible_distribution != 'Debian'
     - ansible_architecture != 'x86_64'
+
+- name: Set Fact for 'node_ip'
+  set_fact:
+    node_ip: "{{ node_ip | default(default_value, true) }}"
