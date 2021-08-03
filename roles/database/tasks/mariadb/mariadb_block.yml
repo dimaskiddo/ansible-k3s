@@ -24,11 +24,11 @@
 
 - name: Clean Block Device for MariaDB Data Storage if 'block_wipe' is true
   parted:
-    device: "{{ item.0.disk.dev }}"
-    number: "{{ item.1.num }}"
+    device: "/dev/{{ block_device }}"
+    number: "{{ item.num }}"
     state: absent
   with_items:
-    - "{{ block_info.results | subelements('partitions') }}"
+    - "{{ block_info.partitions }}"
   when:
     - block_info.partitions | length > 0
     - block_wipe
