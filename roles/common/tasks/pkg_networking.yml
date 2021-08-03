@@ -12,5 +12,5 @@
     - telnet
     - netcat
     - conntrack
-    - iptables-services
+    - iptables
     - bridge-utils
