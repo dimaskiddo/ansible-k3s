@@ -1,8 +1,9 @@
 ---
-- name: Install PIP for 'pymsql'
-  pip:
+- name: Install Python for MySQL Packages
+  apt:
     name: "{{ item }}"
-    extra_args: --no-cache-dir
+    force_apt_get: yes
+    update_cache: yes
     state: present
   with_items:
-    - pymysql
+    - python-mysqldb
