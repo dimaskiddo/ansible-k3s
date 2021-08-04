@@ -33,6 +33,13 @@
   when:
     - linux_image_type == 'desktop'
 
+- name: If Linux Image Type is Desktop Fix Symlink Build Issue
+  shell: ln -s /usr/src/linux-headers-`uname -r | awk -F '-' '{print $1"-"$2}'`-common/include/linux /lib/modules/`uname -r`/build/include/linux
+  args:
+    warn: false
+  when:
+    - linux_image_type == 'desktop'
+
 - name: Install ZFS Packages
   apt:
     name: "{{ item }}"
