@@ -20,7 +20,7 @@
   when:
     - linux_image_type == 'cloud'
 
-- name: Install ZFS Dependencies Packages (Dekstop)
+- name: Install ZFS Dependencies Packages (Desktop)
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -31,7 +31,7 @@
     - linux-image-amd64
     - dpkg-dev
   when:
-    - linux_image_type == 'dekstop'
+    - linux_image_type == 'desktop'
 
 - name: Install ZFS Packages
   apt:
