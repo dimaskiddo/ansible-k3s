@@ -1,15 +1,13 @@
 ---
-- import_playbook: prerequisites.yml
-
-- hosts: balancer
+- hosts: balancer:database:masters:infras:nodes
   any_errors_fatal: true
   roles:
-    - role: balancer
+  - role: facts
 
-- hosts: database
+- hosts: masters:infras:nodes
   any_errors_fatal: true
   roles:
-    - role: database
+  - role: common
 
 - hosts: masters
   any_errors_fatal: true

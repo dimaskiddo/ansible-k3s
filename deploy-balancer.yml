@@ -1,0 +1,15 @@
+---
+- hosts: balancer:masters
+  any_errors_fatal: true
+  roles:
+  - role: facts
+
+- hosts: balancer
+  any_errors_fatal: true
+  roles:
+  - role: common
+
+- hosts: balancer
+  any_errors_fatal: true
+  roles:
+    - role: balancer

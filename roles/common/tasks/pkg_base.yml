@@ -15,7 +15,7 @@
   poll: 0    
   when:
     - os_upgrade_info.changed
-    - reboot_upgrade
+    - reboot_upgrade == 'true'
 
 - name: Wait For Node to Be Ready If Operating System Upgraded
   wait_for_connection:

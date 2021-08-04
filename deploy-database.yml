@@ -1,0 +1,15 @@
+---
+- hosts: database
+  any_errors_fatal: true
+  roles:
+  - role: facts
+
+- hosts: database
+  any_errors_fatal: true
+  roles:
+  - role: common
+
+- hosts: database
+  any_errors_fatal: true
+  roles:
+    - role: database

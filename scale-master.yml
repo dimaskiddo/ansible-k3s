@@ -1,0 +1,16 @@
+---
+- hosts: balancer:database:new_masters
+  any_errors_fatal: true
+  roles:
+  - role: facts
+
+- hosts: new_masters
+  any_errors_fatal: true
+  roles:
+  - role: common
+
+- hosts: new_masters
+  any_errors_fatal: true
+  serial: 1
+  roles:
+    - role: k3s/master
