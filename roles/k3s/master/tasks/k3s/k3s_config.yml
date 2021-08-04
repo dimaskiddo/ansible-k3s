@@ -21,7 +21,7 @@
     dest: ~{{ ansible_user }}/.kube/config
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-    mode: 0644
+    mode: 0600
     remote_src: yes
 
 - name: Replace K3S Kubernetes Configuration API Server from https://localhost:6443 to https://{{ node_ip }}:6443
