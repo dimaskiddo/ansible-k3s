@@ -2,6 +2,9 @@
 # Default for Node IP
 node_ip: "{{ ansible_default_ipv4.address }}"
 
+# Default for Linux Image Type
+linux_image_type: 'cloud'
+
 # Default for Reboot After OS Upgrade
 reboot_upgrade: 'true'
 

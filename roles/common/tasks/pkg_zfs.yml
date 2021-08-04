@@ -7,7 +7,7 @@
     group: root
     mode: 0644
 
-- name: Install ZFS Dependencies Packages
+- name: Install ZFS Dependencies Packages (Cloud)
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -17,6 +17,21 @@
     - linux-headers-cloud-amd64
     - linux-image-cloud-amd64
     - dpkg-dev
+  when:
+    - linux_image_type == 'cloud'
+
+- name: Install ZFS Dependencies Packages (Dekstop)
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    state: present
+  with_items:
+    - linux-headers-amd64
+    - linux-image-amd64
+    - dpkg-dev
+  when:
+    - linux_image_type == 'dekstop'
 
 - name: Install ZFS Packages
   apt:
