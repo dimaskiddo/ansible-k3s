@@ -12,7 +12,7 @@ helm_version: '3.6.3'
 k3s_channel: 'stable'
 
 # Default for K3S Version
-k3s_version: 'v1.21.3+k3s1'
+k3s_version: 'v1.18.20+k3s1'
 
 # Default for K3S Server SAN
 server_san: ""

@@ -6,10 +6,10 @@ helm_version: '3.6.3'
 k3s_channel: 'stable'
 
 # Value for K3S Version
-k3s_version: 'v1.21.3+k3s1'
+k3s_version: 'v1.18.20+k3s1'
 
 # Value for K3S Server SAN
-server_san: ""
+#server_san: ""
 
 # Value for K3S Server Token
 #server_token: "THIS_IS_YOUR_SERVER_TOKEN"
