@@ -9,13 +9,13 @@ mariadb_version: '10.5'
 mariadb_root_password: 'root#Passw0rd'
 
 # Value for K3S Database User
-db_user: 'k3s'
+#db_user: 'k3s'
 
 # Value for K3S Database Password
-db_password: 'k3s#Passw0rd'
+#db_password: 'k3s#Passw0rd'
 
 # Value for K3S Database Name
-db_name: 'db_k3s'
+#db_name: 'db_k3s'
 
 # Value for Block Device
 #block_device: 'vdb'

@@ -31,7 +31,7 @@ ExecStart=/usr/local/bin/k3s \
     --kubelet-arg allowed-unsafe-sysctls=net.core.somaxconn \
     --kubelet-arg pods-per-core={{ pods_per_core }} \
     --kube-proxy-arg metrics-bind-address=0.0.0.0 \
-{% if enable_ip_vs %}
+{% if enable_ip_vs == 'true' %}
     --kube-proxy-arg proxy-mode=ipvs \
     --kube-proxy-arg ipvs-scheduler={{ ip_vs_mode }} \
 {% endif %}

@@ -32,29 +32,29 @@ ExecStart=/usr/local/bin/k3s \
 {% if server_san != "" %}
     --tls-san {{ server_san }} \
 {% endif -%}
-{% if disable_traefik %}
+{% if disable_traefik == 'true' %}
     --disable traefik \
 {% endif -%}
-{% if disable_servicelb %}
+{% if disable_servicelb == 'true' %}
     --disable servicelb \
 {% endif -%}
-{% if disable_coredns %}
+{% if disable_coredns == 'true' %}
     --disable coredns \
 {% endif -%}
-{% if disable_metric_server %}
+{% if disable_metric_server == 'true' %}
     --disable metrics-server \
 {% endif -%}
-{% if disable_local_storage %}
+{% if disable_local_storage == 'true' %}
     --disable local-storage \
 {% endif -%}
-{% if disable_flannel %}
+{% if disable_flannel == 'true' %}
     --disable-network-policy \
     --flannel-backend none \
 {% endif -%}
 {% if cluster_cidr != "" %}
     --cluster-cidr {{ cluster_cidr }} \
 {% endif -%}  
-{% if enable_ip_vs %}
+{% if enable_ip_vs == 'true' %}
     --kube-proxy-arg proxy-mode=ipvs \
     --kube-proxy-arg ipvs-scheduler={{ ip_vs_mode }} \
 {% endif %}
