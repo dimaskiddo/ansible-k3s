@@ -1,19 +1,19 @@
 ---
 - include: k3s-agent_block.yml
   when:
-    - enable_zfs or enable_lvm
+    - enable_zfs == 'true' or enable_lvm == 'true'
 
 - include: k3s-agent_zfs.yml
   when:
-    - enable_zfs
+    - enable_zfs == 'true'
 
 - include: k3s-agent_lvm.yml
   when:
-    - enable_lvm
+    - enable_lvm == 'true'
 
 - include: k3s-agent_mount.yml
   when:
-    - enable_zfs or enable_lvm
+    - enable_zfs == 'true' or enable_lvm == 'true'
 
 - include: k3s-agent_pkg.yml
 

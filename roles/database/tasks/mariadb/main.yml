@@ -7,19 +7,19 @@
 
 - include: mariadb_block.yml
   when:
-    - enable_zfs or enable_lvm
+    - enable_zfs == 'true' or enable_lvm == 'true'
 
 - include: mariadb_zfs.yml
   when:
-    - enable_zfs
+    - enable_zfs == 'true'
 
 - include: mariadb_lvm.yml
   when:
-    - enable_lvm
+    - enable_lvm == 'true'
 
 - include: mariadb_mount.yml
   when:
-    - enable_zfs or enable_lvm
+    - enable_zfs == 'true' or enable_lvm == 'true'
 
 - include: mariadb_secure.yml
 

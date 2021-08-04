@@ -23,7 +23,7 @@
 - name: Set MariaDB Data Storage Mountpoint to MariaDB Directory (ZFS)
   shell: zfs set mountpoint=/var/lib/mysql {{ zfs_pool_name }}/mariadb
   when:
-    - enable_zfs
+    - enable_zfs == 'true'
 
 - name: Set MariaDB Data Storage Mountpoint to MariaDB Directory (LVM)
   mount:
@@ -34,7 +34,7 @@
     state: mounted
     backup: yes
   when:
-    - enable_lvm
+    - enable_lvm == 'true'
 
 - name: Set Ownership and Permission for MariaDB Directory
   file:

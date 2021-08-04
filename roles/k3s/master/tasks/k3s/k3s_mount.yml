@@ -10,7 +10,7 @@
 - name: Set K3S Data Storage Mountpoint to K3S Data Directory (ZFS)
   shell: zfs set mountpoint=/var/lib/rancher {{ zfs_pool_name }}/k3s
   when:
-    - enable_zfs
+    - enable_zfs == 'true'
 
 - name: Set K3S Data Storage Mountpoint to K3S Data Directory (LVM)
   mount:
@@ -21,4 +21,4 @@
     state: mounted
     backup: yes
   when:
-    - enable_lvm
+    - enable_lvm == 'true'
