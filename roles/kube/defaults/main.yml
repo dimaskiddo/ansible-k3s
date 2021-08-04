@@ -1,0 +1,6 @@
+---
+# Default for CoreDNS Version
+coredns_version: '1.8.4'
+
+# Default for Metrics Server Version
+metrics_server_version: '0.5.0'
