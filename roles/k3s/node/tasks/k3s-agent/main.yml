@@ -17,6 +17,8 @@
 
 - include: k3s-agent_pkg.yml
 
+- include: k3s-agent_mod.yml
+
 - include: k3s-agent_sysctl.yml
 
 - include: k3s-agent_svc.yml

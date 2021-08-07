@@ -1,0 +1,16 @@
+---
+- name: Create Modules Load Needed By K3S Agent from Template
+  template:
+    src: k3s.j2
+    dest: /etc/modules-load.d/k3s.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Load Needed Module By K3S Agent to Kernel
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - br_netfilter
+    - overlay

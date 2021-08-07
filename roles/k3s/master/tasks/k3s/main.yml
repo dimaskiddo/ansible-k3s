@@ -17,6 +17,8 @@
 
 - include: k3s_pkg.yml
 
+- include: k3s_mod.yml
+
 - include: k3s_sysctl.yml
 
 - include: k3s_svc.yml
