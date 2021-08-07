@@ -1,7 +1,7 @@
 ---
 - name: Create Modules Load Needed By K3S from Template
   template:
-    src: k3s.j2
+    src: k3s.conf.j2
     dest: /etc/modules-load.d/k3s.conf
     owner: root
     group: root
