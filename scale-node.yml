@@ -1,5 +1,5 @@
 ---
-- hosts: balancer:database:new_infras:new_nodes
+- hosts: balancer:new_infras:new_nodes
   any_errors_fatal: true
   roles:
   - role: facts
