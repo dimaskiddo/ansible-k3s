@@ -15,7 +15,7 @@
 
 - include: pkg_ip_vs.yml
   when:
-    - inventory_hostname in groups['masters'] or inventory_hostname in groups['infras'] or inventory_hostname in groups['nodes']
+    - inventory_hostname in groups['masters'] or inventory_hostname in groups['infras'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['new_masters'] or inventory_hostname in groups['new_infras'] or inventory_hostname in groups['new_nodes']
     - enable_ip_vs
 
 - include: pkg_zfs.yml
