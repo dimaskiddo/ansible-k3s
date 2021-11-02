@@ -36,7 +36,7 @@
 - name: Install ZFS Packages
   apt:
     name: "{{ item }}"
-    default_release: "{{ ansible_distribution_release }}-backports"
+    # default_release: "{{ ansible_distribution_release }}-backports"
     force_apt_get: yes
     update_cache: yes
     state: present
