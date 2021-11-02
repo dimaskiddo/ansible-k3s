@@ -1,11 +1,11 @@
 ---
-- name: Pin ZFS Packages to Use Backports Repository
-  template:
-    src: backports-zfs.j2
-    dest: /etc/apt/preferences.d/backports-zfs
-    owner: root
-    group: root
-    mode: 0644
+# - name: Pin ZFS Packages to Use Backports Repository
+#   template:
+#     src: backports-zfs.j2
+#     dest: /etc/apt/preferences.d/backports-zfs
+#     owner: root
+#     group: root
+#     mode: 0644
 
 - name: Install ZFS Dependencies Packages (Cloud)
   apt:
