@@ -3,12 +3,14 @@
   lvg:
     pvs: "/dev/{{ block_device }}1"
     vg: "{{ lvm_vg_name }}"
+    state: present
 
 - name: Create Logical Volume
   lvol:
     vg: "{{ lvm_vg_name }}"
     lv: "lv-k3s"
     size: 100%FREE
+    state: present
     force: yes
 
 - name: Format Logical Volume
