@@ -50,5 +50,5 @@
     - curl
     - wget
     - rsync
-    - logrotate    
+    - logrotate
     - byobu
