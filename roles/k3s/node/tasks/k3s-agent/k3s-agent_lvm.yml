@@ -11,6 +11,7 @@
     lv: "lv-k3s"
     size: 100%FREE
     state: present
+    shrink: no
     force: yes
 
 - name: Format Logical Volume
