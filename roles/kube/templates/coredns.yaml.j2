@@ -59,15 +59,17 @@ data:
           lameduck 5s
         }
         ready
-        autopath @kubernetes
         kubernetes cluster.local in-addr.arpa ip6.arpa {
+          pods insecure
           fallthrough in-addr.arpa ip6.arpa
         }
+        ## hosts /etc/coredns/Hosts {
+        ##  reload 1s
+        ##  fallthrough
+        ## }
         prometheus :9153
-        forward . /etc/resolv.conf {
-          max_concurrent 10000
-        }
-        cache 100
+        forward . 202.152.5.36 202.152.0.2
+        cache 600
         loop
         reload
         loadbalance
