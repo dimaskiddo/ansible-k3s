@@ -1,0 +1,16 @@
+---
+- name: Generate Memory Flusher Script
+  template:
+    src: flush-mem.j2
+    dest: /usr/local/bin/flush-mem
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Generate K3s Certificate Checker Script
+  template:
+    src: k3s-cert-check.j2
+    dest: /usr/local/bin/k3s-cert-check
+    owner: root
+    group: root
+    mode: 0755

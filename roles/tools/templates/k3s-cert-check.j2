@@ -1,0 +1,38 @@
+#!/bin/bash
+# K3s Certificate Expiration and Rotation Script
+# Created By Dimas Restu Hidayanto (dimas.restu@student.upi.edu)
+
+DAYS=7
+TIMESTAMP=`date "+%Y-%m-%d %H:%M:%S"`
+
+if [ $# -ne 1 ]
+then
+  echo "$TIMESTAMP [FATAL] Please Specify K3s type, master or agent"
+  exit 1
+fi
+
+TYPE=$1
+if [ $TYPE == "master" ]
+then
+  SERVICE_NAME="k3s.service"
+  CERT_FILE=/var/lib/rancher/k3s/server/tls/serving-kube-apiserver.crt
+else
+  SERVICE_NAME="k3s-agent.service"
+  CERT_FILE=/var/lib/rancher/k3s/agent/serving-kubelet.crt
+fi
+
+EXPIRATION_DATE=$(date -d "$(: | openssl x509 -text -noout -text -in ${CERT_FILE} \
+                               | grep 'Not After' \
+                               | awk '{print $4,$5,$7}')" '+%s')
+EXPIRATION_LIMIT=$(($(date +%s) + (86400*$DAYS)))
+
+if [ $EXPIRATION_LIMIT -gt $EXPIRATION_DATE ]; then
+  echo "$TIMESTAMP [WARN] K3s $TYPE certificate will expires less than $DAYS days, on $(date -d @$EXPIRATION_DATE '+%Y-%m-%d')"
+  echo "$TIMESTAMP [INFO] Running K3s $TYPE certificate rotation by restarting '$SERVICE_NAME'"
+  systemctl restart $SERVICE_NAME
+  echo "$TIMESTAMP [INFO] K3s STYPE service '$SERVICE_NAME' successfully restarted"
+  exit 0
+fi
+
+echo "$TIMESTAMP [INFO] K3s $TYPE certificate is OK, will expires on $(date -d @$EXPIRATION_DATE '+%Y-%m-%d')"
+exit 0

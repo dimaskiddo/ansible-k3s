@@ -1,0 +1,28 @@
+---
+- name: Create K3s Certificate Check Log
+  file:
+    path: "{{ item }}"
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - /var/log/k3s-cert-check.log
+
+- name: Create K3s Certificate Check Log Rotate
+  blockinfile:
+    path: /etc/logrotate.d/k3s-cert-check
+    owner: root
+    group: root
+    mode: 0644
+    create: yes
+    block: |
+      /var/log/k3s-cert-check.log {
+        create 0644 root root
+        rotate 3
+        monthly
+        compress
+        missingok
+        notifempty
+      }
+    state: present
