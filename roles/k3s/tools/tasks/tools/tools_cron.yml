@@ -1,7 +1,7 @@
 ---
 - name: Configure ContainerD Image Prune Cron Job
   cron:
-    name: flush-mem
+    name: crictl
     job: "/usr/local/bin/crictl rmi --prune"
     user: root
     minute: "0"
