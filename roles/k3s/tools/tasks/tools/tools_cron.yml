@@ -1,13 +1,4 @@
 ---
-- name: Configure ContainerD Image Prune Cron Job
-  cron:
-    name: crictl
-    job: "/usr/local/bin/crictl rmi --prune"
-    user: root
-    minute: "0"
-    hour: "0"
-    state: present
-
 - name: Configure Memory Flusher Cron Job
   cron:
     name: flush-mem
@@ -15,6 +6,15 @@
     user: root
     minute: "0"
     hour: "*/2"
+    state: present
+
+- name: Configure ContainerD Image Prune Cron Job
+  cron:
+    name: k3s-crictl-rmi
+    job: "/usr/local/bin/crictl rmi --prune"
+    user: root
+    minute: "0"
+    hour: "0"
     state: present
 
 - name: Configure K3s Certificate Checker Cron Job (Master)
