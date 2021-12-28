@@ -19,3 +19,8 @@
   any_errors_fatal: true
   roles:
     - role: k3s/node
+
+- hosts: masters:infras:nodes
+  any_errors_fatal: true
+  roles:
+    - role: k3s/tools

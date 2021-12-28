@@ -1,0 +1,10 @@
+---
+- hosts: masters:infras:nodes:new_masters:new_infras:new_nodes
+  any_errors_fatal: true
+  roles:
+  - role: facts
+
+- hosts: masters:infras:nodes:new_masters:new_infras:new_nodes
+  any_errors_fatal: true
+  roles:
+    - role: k3s/tools

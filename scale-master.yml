@@ -14,3 +14,8 @@
   serial: 1
   roles:
     - role: k3s/master
+
+- hosts: new_masters
+  any_errors_fatal: true
+  roles:
+    - role: k3s/tools

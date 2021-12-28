@@ -1,0 +1,31 @@
+---
+- name: Configure Memory Flusher Cron Job
+  cron:
+    name: flush-mem
+    job: "/usr/local/bin/flush-mem"
+    user: root
+    minute: "0"
+    hour: "*/2"
+    state: present
+
+- name: Configure K3s Certificate Checker Cron Job (Master)
+  cron:
+    name: k3s-cert-check
+    job: "/usr/local/bin/k3s-cert-check master >> /var/log/k3s-cert-check.log"
+    user: root
+    minute: "0"
+    hour: "0"
+    state: present
+  when:
+    - inventory_hostname in groups['masters'] or inventory_hostname in groups['new_masters']
+
+- name: Configure K3s Certificate Checker Cron Job (Nodes)
+  cron:
+    name: k3s-cert-check
+    job: "/usr/local/bin/k3s-cert-check agent >> /var/log/k3s-cert-check.log"
+    user: root
+    minute: "0"
+    hour: "0"
+    state: present
+  when:
+    - inventory_hostname in groups['infras'] or inventory_hostname in groups['nodes'] or inventory_hostname in groups['new_infras'] or inventory_hostname in groups['new_nodes']

@@ -13,3 +13,8 @@
   any_errors_fatal: true
   roles:
     - role: k3s/node
+
+- hosts: new_infras:new_nodes
+  any_errors_fatal: true
+  roles:
+    - role: k3s/tools
