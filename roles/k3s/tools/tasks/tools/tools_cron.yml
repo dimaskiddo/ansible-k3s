@@ -17,16 +17,30 @@
     hour: "0"
     state: present
 
-- name: Configure K3s Certificate Checker Cron Job (Master)
+- name: Configure K3s Certificate Checker Cron Job (First Master)
   cron:
     name: k3s-cert-check
-    job: "/usr/local/bin/k3s-cert-check master >> /var/log/k3s-cert-check.log"
+    job: "/usr/local/bin/k3s-cert-check master 1 >> /var/log/k3s-cert-check.log"
+    user: root
+    minute: "0"
+    hour: "0"
+    state: present
+  run_once: true
+  when:
+    - inventory_hostname in groups['masters'] or inventory_hostname in groups['new_masters']
+    - inventory_hostname == groups.masters[0]
+
+- name: Configure K3s Certificate Checker Cron Job (Other Master)
+  cron:
+    name: k3s-cert-check
+    job: "/usr/local/bin/k3s-cert-check master 0 >> /var/log/k3s-cert-check.log"
     user: root
     minute: "0"
     hour: "0"
     state: present
   when:
     - inventory_hostname in groups['masters'] or inventory_hostname in groups['new_masters']
+    - inventory_hostname != groups.masters[0]
 
 - name: Configure K3s Certificate Checker Cron Job (Nodes)
   cron:
