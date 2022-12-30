@@ -11,12 +11,11 @@
     - ansible_python_interpreter is match(".*python2.*")
 
 - name: Install Python for MySQL Packages If Intepreter is Python3
-  apt:
+  pip:
     name: "{{ item }}"
-    force_apt_get: yes
-    update_cache: yes
+    extra_args: --no-cache-dir
     state: present
   with_items:
-    - python3-mysqldb
+    - PyMySQL
   when:
     - ansible_python_interpreter is match(".*python3.*")
