@@ -44,15 +44,6 @@
     reload: no
     state: present
 
-- name: Set Sysctl for 'net.ipv6.conf.eth0.disable_ipv6'
-  sysctl:
-    name: net.ipv6.conf.eth0.disable_ipv6
-    value: 1
-    sysctl_file: /etc/sysctl.conf
-    sysctl_set: yes
-    reload: no
-    state: present
-
 - name: Set Sysctl for 'net.ipv4.tcp_mem'
   sysctl:
     name: net.ipv4.tcp_mem

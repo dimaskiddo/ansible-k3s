@@ -1,5 +1,5 @@
 ---
-- name: Install Python for MySQL Packages
+- name: Install Python for MySQL Packages If Intepreter is Python2
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -7,3 +7,16 @@
     state: present
   with_items:
     - python-mysqldb
+  when:
+    - ansible_python_interpreter is match(".*python2.*")
+
+- name: Install Python for MySQL Packages If Intepreter is Python3
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    state: present
+  with_items:
+    - python3-mysqldb
+  when:
+    - ansible_python_interpreter is match(".*python3.*")
