@@ -5,9 +5,15 @@
   ignore_errors: true
   register: mariadb_root_init
 
+- name: MariaDB Disable Root Remote Login
+  command: mysql -u root -e "DELETE FROM mysql.user WHERE user='root' AND host NOT IN ('localhost', '127.0.0.1', '::1');"
+  when: 
+    - mariadb_root_init.rc == 0
+
 - name: MariaDB Update Root User
   mysql_user:
     login_user: root
+    login_password: "{{ mariadb_root_password }}"
     login_unix_socket: /run/mysqld/mysqld.sock
     name: root
     password: "{{ mariadb_root_password }}"
@@ -38,8 +44,3 @@
 
 - name: MariaDB Flush Priviliges
   command: mysql -u root -p{{ mariadb_root_password }} -e "FLUSH PRIVILEGES"
-
-- name: MariaDB Disable Root Remote Login
-  command: mysql -u root -e "DELETE FROM mysql.user WHERE user='root' AND host NOT IN ('localhost', '127.0.0.1', '::1');"
-  when: 
-    - mariadb_root_init.rc == 0
