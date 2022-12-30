@@ -2,7 +2,7 @@
 - name: Set Sysctl for 'net.netfilter.nf_conntrack_max'
   sysctl:
     name: net.netfilter.nf_conntrack_max
-    value: 524288
+    value: "524288"
     sysctl_file: /etc/sysctl.conf
     sysctl_set: yes
     reload: no
@@ -11,7 +11,7 @@
 - name: Set Sysctl for 'net.ipv4.ip_forward'
   sysctl:
     name: net.ipv4.ip_forward
-    value: 1
+    value: "1"
     sysctl_file: /etc/sysctl.conf
     sysctl_set: yes
     reload: no
