@@ -30,7 +30,7 @@ then
   # -----------------------------------------------------------------------------------------------------------------
   # When it's master node make sure to also check certificate cache bug (https://www.ibm.com/support/pages/node/6444205)
   # -----------------------------------------------------------------------------------------------------------------
-  if [[ $K3S_TYPE == "master" && $K3S_FIRST_MASTER -eq 1 && ( K3S_VERSION == *"1.17"* || K3S_VERSION == *"1.18"* ) ]]
+  if [[ $K3S_TYPE == "master" && $K3S_FIRST_MASTER -eq 1 && ( $K3S_VERSION == *"1.17"* || $K3S_VERSION == *"1.18"* ) ]]
   then
     if [ `netstat -tlnp | grep 6443 | wc -l` -ge 1 ]
     then
