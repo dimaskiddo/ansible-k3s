@@ -35,11 +35,16 @@ then
     if [ `netstat -tlnp | grep 6443 | wc -l` -ge 1 ]
     then
       # First Check
+      EXPIRATION_DATE_CACHE=$(date -d "$(: | openssl s_client -connect localhost:6443 -showcerts < /dev/null 2>&1 \
+                                           | openssl x509 -noout -enddate \
+                                           | awk -F '=' '{print $2}' \
+                                           | awk '{print $1,$2,$4}')" '+%s')
+
       EXPIRATION_DATE_FILE=$(date -d "$(: | openssl x509 -text -noout -text -in ${CERT_FILE} \
                                           | grep 'Not After' \
                                           | awk '{print $4,$5,$7}')" '+%s')
 
-      if [ $EXPIRATION_LIMIT -gt $EXPIRATION_DATE_FILE ]; then
+      if [ $EXPIRATION_LIMIT -gt $EXPIRATION_DATE_CACHE || $EXPIRATION_LIMIT -gt $EXPIRATION_DATE_FILE ]; then
         echo "`date "+%Y-%m-%d %H:%M:%S"` [WARN] K3s $K3S_TYPE certificate cache will expires less than $DAYS days, on $(date -d @$EXPIRATION_DATE_CACHE '+%Y-%m-%d')"
         echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO] Running K3s $K3S_TYPE certificate cache rotation task"
         echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO]  -> Backing-up K3s $K3S_TYPE Certificate"
@@ -51,6 +56,10 @@ then
         echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO]  -> Removing K3s $K3S_TYPE Serving Certificate Secret"
         kubectl --insecure-skip-tls-verify delete secret k3s-serving -n kube-system
         echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO]  -> Restarting K3s $K3S_TYPE service '$SERVICE_NAME'"
+        systemctl restart $SERVICE_NAME
+        echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO]  -> Waiting Other K3s $K3S_TYPE service '$SERVICE_NAME' to be Restarted"
+        sleep 10
+        echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO]  -> Restarting K3s $K3S_TYPE service '$SERVICE_NAME' After Other Node Restarted"
         systemctl restart $SERVICE_NAME
         echo "`date "+%Y-%m-%d %H:%M:%S"` [INFO] K3s $K3S_TYPE certificate cache rotation task completed"
       fi
