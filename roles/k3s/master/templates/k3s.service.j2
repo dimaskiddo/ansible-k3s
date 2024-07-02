@@ -61,7 +61,7 @@ ExecStart=/usr/local/bin/k3s \
     --kube-proxy-arg metrics-bind-address=0.0.0.0 \
     --kubelet-arg pods-per-core={{ pods_per_core }} \
     --kubelet-arg allowed-unsafe-sysctls=net.core.somaxconn \
-{% if db_user != '' and db_password != '' and db_host != '' and  db_name != '' %}
+{% if db_user != '' and db_password != '' and db_host != '' and db_name != '' %}
     --datastore-endpoint mysql://{{ db_user }}:{{ db_password }}@tcp({{ db_host }}:3306)/{{ db_name }} \
 {% endif %}
     -t {{ server_token }}
