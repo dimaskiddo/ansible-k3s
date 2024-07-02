@@ -1,3 +1,9 @@
+{% set server_url_arr = [] %}
+{% if server_url == '' %}
+  {% for host, vars in groups['masters'].items() %}
+    {% set _ = server_url_arr.append('https://' + vars.node_ip + ':6443') %}
+  {% endfor %}
+{% endif %}
 [Unit]
 Description=Lightweight Kubernetes
 Documentation=https://k3s.io
@@ -38,8 +44,6 @@ ExecStart=/usr/local/bin/k3s \
 {% if server_url != '' %}
     --server {{ server_url }} \
 {% else %}
-  {% for host, vars in groups['masters'].items() %}
-    --server https://{{ vars.node_ip }}:6443 \
-  {% endfor %}
+    --server {{ server_url_arr | join(',') }} \
 {% endif %}
     -t {{ server_token }}
