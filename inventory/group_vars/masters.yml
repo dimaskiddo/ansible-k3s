@@ -1,6 +1,6 @@
 ---
 # Value for Helm Version
-helm_version: '3.6.3'
+helm_version: '3.15.2'
 
 # Value for K3S Channel
 k3s_channel: 'stable'
@@ -15,7 +15,7 @@ k3s_version: 'v1.18.20+k3s1'
 #server_token: "THIS_IS_YOUR_SERVER_TOKEN"
 
 # Value for K3S Database Host
-db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"
+#db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"
 
 # Value for K3S Database User
 #db_user: 'k3s'

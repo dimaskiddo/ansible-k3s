@@ -35,5 +35,11 @@ ExecStart=/usr/local/bin/k3s \
     --kube-proxy-arg proxy-mode=ipvs \
     --kube-proxy-arg ipvs-scheduler={{ ip_vs_mode }} \
 {% endif %}
+{% if server_url != '' %}
     --server {{ server_url }} \
+{% else %}
+  {% for host, vars in groups['masters'].items() %}
+    --server https://{{ vars.node_ip }}:6443 \
+  {% endfor %}
+{% endif %}
     -t {{ server_token }}
