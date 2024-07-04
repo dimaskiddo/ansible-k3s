@@ -9,13 +9,13 @@ node_name: "{{ ansible_hostname }}"
 k3s_channel: 'stable'
 
 # Default for K3S Version
-k3s_version: 'v1.18.20+k3s1'
+k3s_version: 'v1.28.8-k3s1'
 
 # Default for K3S Server URL
-server_url: "https://{{ hostvars[groups['balancer'][0]]['node_ip'] }}:6443"
+server_url: ''
 
 # Default for K3S Server Token
-server_token: "THIS_IS_YOUR_SERVER_TOKEN"
+server_token: 'THIS_IS_YOUR_SERVER_TOKEN'
 
 # Default for K3S Pods-per-Core
 pods_per_core: 10

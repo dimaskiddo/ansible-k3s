@@ -6,25 +6,25 @@ helm_version: '3.15.2'
 k3s_channel: 'stable'
 
 # Value for K3S Version
-k3s_version: 'v1.18.20+k3s1'
+k3s_version: 'v1.28.8-k3s1'
 
 # Value for K3S Server SAN
-#server_san: ""
+#server_san: ''
 
 # Value for K3S Server Token
-#server_token: "THIS_IS_YOUR_SERVER_TOKEN"
+#server_token: 'THIS_IS_YOUR_SERVER_TOKEN'
 
 # Value for K3S Database Host
-#db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"
+db_host: ''
 
 # Value for K3S Database User
-#db_user: 'k3s'
+db_user: ''
 
 # Value for K3S Database Password
-#db_password: 'k3s#Passw0rd'
+db_password: ''
 
 # Value for K3S Database Name
-#db_name: 'db_k3s'
+db_name: ''
 
 # Value for K3S Disable Traefik
 #disable_traefik: 'false'

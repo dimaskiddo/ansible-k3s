@@ -6,31 +6,31 @@ node_ip: "{{ ansible_default_ipv4.address }}"
 node_name: "{{ ansible_hostname }}"
 
 # Default for Helm Version
-helm_version: '3.6.3'
+helm_version: '3.15.2'
 
 # Default for K3S Channel
 k3s_channel: 'stable'
 
 # Default for K3S Version
-k3s_version: 'v1.18.20+k3s1'
+k3s_version: 'v1.28.8-k3s1'
 
 # Default for K3S Server SAN
-server_san: ""
+server_san: ''
 
 # Default for K3S Server Token
-server_token: "THIS_IS_YOUR_SERVER_TOKEN"
+server_token: 'THIS_IS_YOUR_SERVER_TOKEN'
 
 # Default for K3S Database Host
-db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"
+db_host: ''
 
 # Default for K3S Database User
-db_user: 'k3s'
+db_user: ''
 
 # Default for K3S Database Password
-db_password: 'k3s#Passw0rd'
+db_password: ''
 
 # Default for K3S Database Name
-db_name: 'db_k3s'
+db_name: ''
 
 # Default for K3S Disable Traefik
 disable_traefik: 'false'
