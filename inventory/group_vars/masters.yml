@@ -6,7 +6,7 @@ helm_version: '3.15.2'
 k3s_channel: 'stable'
 
 # Value for K3S Version
-k3s_version: 'v1.29.6-k3s1'
+k3s_version: 'v1.29.6+k3s2'
 
 # Value for K3S Server SAN
 #server_san: ''

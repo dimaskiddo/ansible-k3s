@@ -1,6 +1,7 @@
 {% set server_url_arr = [] %}
 {% if server_url == '' %}
-  {% for host, vars in groups['masters'].items() %}
+  {% for master in groups['masters'] %}
+    {% set vars = hostvars[master] %}
     {% set _ = server_url_arr.append('https://' + vars.node_ip + ':6443') %}
   {% endfor %}
 {% endif %}
