@@ -60,3 +60,4 @@
     - rsync
     - logrotate
     - byobu
+    - cron

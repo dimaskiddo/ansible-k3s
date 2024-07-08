@@ -6,7 +6,7 @@ database_backend: 'mariadb'
 mariadb_version: '10.5'
 
 # Value for MariaDB Root Password
-mariadb_root_password: 'root#Passw0rd'
+#mariadb_root_password: 'root#Passw0rd'
 
 # Value for K3S Database User
 #db_user: 'k3s'

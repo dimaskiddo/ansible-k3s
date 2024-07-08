@@ -12,7 +12,7 @@ k3s_channel: 'stable'
 k3s_version: 'v1.28.8-k3s1'
 
 # Default for K3S Server URL
-server_url: ''
+server_url: "https://{{ hostvars[groups['masters'][0]]['node_ip'] }}:6443"
 
 # Default for K3S Server Token
 server_token: 'THIS_IS_YOUR_SERVER_TOKEN'

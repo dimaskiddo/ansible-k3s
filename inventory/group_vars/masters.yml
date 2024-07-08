@@ -11,20 +11,23 @@ k3s_version: 'v1.29.6+k3s2'
 # Value for K3S Server SAN
 #server_san: ''
 
+# Value for K3S Server URL
+server_url: "https://{{ hostvars[groups['masters'][0]]['node_ip'] }}:6443"
+
 # Value for K3S Server Token
 #server_token: 'THIS_IS_YOUR_SERVER_TOKEN'
 
 # Value for K3S Database Host
-db_host: ''
+#db_host: "{{ hostvars[groups['database'][0]]['node_ip'] }}"
 
 # Value for K3S Database User
-db_user: ''
+#db_user: 'k3s'
 
 # Value for K3S Database Password
-db_password: ''
+#db_password: 'k3s#Passw0rd'
 
 # Value for K3S Database Name
-db_name: ''
+#db_name: 'db_k3s'
 
 # Value for K3S Disable Traefik
 #disable_traefik: 'false'
