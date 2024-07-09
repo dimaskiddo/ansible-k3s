@@ -12,6 +12,34 @@
     - ansible_distribution != 'Debian'
     - ansible_architecture != 'x86_64'
 
+- name: Parse K3S Version Number from Vars
+  set_fact:
+    k3s_version_number: "{{ k3s_version.split('+')[0] }}"
+
+- name: Parse K3S Version Parts from Vars
+  set_fact:
+    k3s_version_parts: "{{ k3s_version_number.split('.') }}"
+
+- name: Ensure K3S Version Parts Have Same Length
+  set_fact:
+    k3s_version_vars: "{{ k3s_version_parts + ['0'] * (3 - k3s_version_parts|length) }}"
+    k3s_version_compare: "{{ ['1', '25', '0'] }}"
+
+- name: Ensure K3S Version Policy to Use
+  set_fact:
+    k3s_version_policy_new: >
+      {% set result = false %}
+      {% for a, b in zip(k3s_version_vars, k3s_version_compare) %}
+      {%   if a|int > b|int %}
+      {%     set result = true %}
+      {%     break %}
+      {%   elif a|int < b|int %}
+      {%     set result = false %}
+      {%     break %}
+      {%   endif %}
+      {% endfor %}
+      {{ result }}
+
 - name: Check Required Variable 'block_device' if 'enable_zfs' or 'enable_lvm'
   fail: 
     msg: "Required Variable 'block_device' is Required"

@@ -74,6 +74,26 @@
     group: root
     mode: 0644
 
+- name: Create K3S Policy File from Template (v1.25 or Higher)
+  template:
+    src: psa.yaml.j2
+    dest: /var/lib/rancher/k3s/server/psa.yaml
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - k3s_version_policy_new
+
+- name: Create K3S Policy File from Template (v1.24 or Lower)
+  template:
+    src: policy.yaml.j2
+    dest: /var/lib/rancher/k3s/server/manifests/policy.yaml
+    owner: root
+    group: root
+    mode: 0644
+  when:
+    - not k3s_version_policy_new
+
 - name: Create K3S Installer File from Template
   template:
     src: k3s-install.sh.j2
