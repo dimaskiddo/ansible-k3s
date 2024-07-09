@@ -53,7 +53,7 @@ ExecStart=/usr/local/bin/k3s \
 {% endif -%}
 {% if cluster_cidr != "" %}
     --cluster-cidr {{ cluster_cidr }} \
-{% endif -%}
+{% endif %}
     --secrets-encryption \
     --protect-kernel-defaults \
 {% if version_is_greater_or_equal %}
