@@ -29,14 +29,17 @@
   set_fact:
     k3s_version_policy_new: >
       {% set result = false %}
+      {% set done = false %}
       {% for a, b in zip(k3s_version_vars, k3s_version_compare) %}
-      {%   if a|int > b|int %}
-      {%     set result = true %}
-      {%     break %}
-      {%   elif a|int < b|int %}
-      {%     set result = false %}
-      {%     break %}
-      {%   endif %}
+      {% if not done %}
+        {% if a|int > b|int %}
+          {% set result = true %}
+          {% set done = true %}
+        {% elif a|int < b|int %}
+          {% set result = false %}
+          {% set done = true %}
+        {% endif %}
+      {% endif %}
       {% endfor %}
       {{ result }}
 
