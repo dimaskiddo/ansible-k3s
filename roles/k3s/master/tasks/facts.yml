@@ -12,9 +12,13 @@
     - ansible_distribution != 'Debian'
     - ansible_architecture != 'x86_64'
 
+- name: Clean-up K3S Version Number from Vars
+  set_fact:
+    k3s_version_stripped: "{{ k3s_version | regex_replace('^v', '') }}"
+
 - name: Parse K3S Version Number from Vars
   set_fact:
-    k3s_version_number: "{{ k3s_version.split('+')[0] }}"
+    k3s_version_number: "{{ k3s_version_stripped.split('+')[0] }}"
 
 - name: Parse K3S Version Parts from Vars
   set_fact:
@@ -34,18 +38,23 @@
   set_fact:
     version_is_greater_or_equal: "{{ k3s_version_vars[0] | int > k3s_version_compare[0] | int }}"
     comparison_done: "{{ k3s_version_vars[0] | int != k3s_version_compare[0] | int }}"
-  when: not comparison_done
+  when:
+    - not comparison_done
 
 - name: Compare K3S Minor Version
   set_fact:
     version_is_greater_or_equal: "{{ k3s_version_vars[1] | int > k3s_version_compare[1] | int }}"
     comparison_done: "{{ k3s_version_vars[1] | int != k3s_version_compare[1] | int }}"
-  when: not comparison_done and not version_is_greater_or_equal
+  when:
+    - not comparison_done
+    - not version_is_greater_or_equal
 
 - name: Compare K3S Patch Version
   set_fact:
     version_is_greater_or_equal: "{{ k3s_version_vars[2] | int >= k3s_version_compare[2] | int }}"
-  when: not comparison_done and not version_is_greater_or_equal
+  when:
+    - not comparison_done
+    - not version_is_greater_or_equal
 
 - name: Check Required Variable 'block_device' if 'enable_zfs' or 'enable_lvm'
   fail: 
