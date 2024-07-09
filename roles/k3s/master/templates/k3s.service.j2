@@ -56,7 +56,7 @@ ExecStart=/usr/local/bin/k3s \
 {% endif -%}
     --secrets-encryption \
     --protect-kernel-defaults \
-{% if k3s_version_policy_new %}
+{% if version_is_greater_or_equal %}
     --kube-apiserver-arg="admission-control-config-file=/var/lib/rancher/k3s/server/psa.yaml" \
 {% else %}
     --kube-apiserver-arg="enable-admission-plugins=NodeRestriction,PodSecurityPolicy,NamespaceLifecycle,ServiceAccount" \

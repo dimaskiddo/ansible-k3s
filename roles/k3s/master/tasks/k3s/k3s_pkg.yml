@@ -82,7 +82,7 @@
     group: root
     mode: 0644
   when:
-    - k3s_version_policy_new
+    - version_is_greater_or_equal
 
 - name: Create K3S Policy File from Template (v1.24 or Lower)
   template:
@@ -92,7 +92,7 @@
     group: root
     mode: 0644
   when:
-    - not k3s_version_policy_new
+    - not version_is_greater_or_equal
 
 - name: Create K3S Installer File from Template
   template:

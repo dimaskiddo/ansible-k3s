@@ -25,23 +25,27 @@
     k3s_version_vars: "{{ k3s_version_parts + ['0'] * (3 - k3s_version_parts|length) }}"
     k3s_version_compare: "{{ ['1', '25', '0'] }}"
 
-- name: Ensure K3S Version Policy to Use
+- name: Initialize Comparison K3S Version
   set_fact:
-    k3s_version_policy_new: >
-      {% set result = false %}
-      {% set done = false %}
-      {% for a, b in zip(k3s_version_vars, k3s_version_compare) %}
-      {% if not done %}
-        {% if a|int > b|int %}
-          {% set result = true %}
-          {% set done = true %}
-        {% elif a|int < b|int %}
-          {% set result = false %}
-          {% set done = true %}
-        {% endif %}
-      {% endif %}
-      {% endfor %}
-      {{ result }}
+    version_is_greater_or_equal: false
+    comparison_done: false
+
+- name: Compare K3S Major Version
+  set_fact:
+    version_is_greater_or_equal: "{{ k3s_version_vars[0] | int > k3s_version_compare[0] | int }}"
+    comparison_done: "{{ k3s_version_vars[0] | int != k3s_version_compare[0] | int }}"
+  when: not comparison_done
+
+- name: Compare K3S Minor Version
+  set_fact:
+    version_is_greater_or_equal: "{{ k3s_version_vars[1] | int > k3s_version_compare[1] | int }}"
+    comparison_done: "{{ k3s_version_vars[1] | int != k3s_version_compare[1] | int }}"
+  when: not comparison_done and not version_is_greater_or_equal
+
+- name: Compare K3S Patch Version
+  set_fact:
+    version_is_greater_or_equal: "{{ k3s_version_vars[2] | int >= k3s_version_compare[2] | int }}"
+  when: not comparison_done and not version_is_greater_or_equal
 
 - name: Check Required Variable 'block_device' if 'enable_zfs' or 'enable_lvm'
   fail: 
