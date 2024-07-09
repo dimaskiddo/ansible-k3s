@@ -4,6 +4,7 @@
     name: "{{ item }}"
     force_apt_get: yes
     update_cache: yes
+    install_recommends: no
     state: present
   with_items:
     - python
@@ -17,6 +18,7 @@
     name: "{{ item }}"
     force_apt_get: yes
     update_cache: yes
+    install_recommends: no
     state: present
   with_items:
     - python2
@@ -30,6 +32,7 @@
     name: "{{ item }}"
     force_apt_get: yes
     update_cache: yes
+    install_recommends: no
     state: present
   with_items:
     - python3
