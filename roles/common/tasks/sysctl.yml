@@ -1,4 +1,40 @@
 ---
+- name: Set Sysctl for 'kernel.panic'
+  sysctl:
+    name: kernel.panic
+    value: "10"
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
+- name: Set Sysctl for 'kernel.panic_on_oops'
+  sysctl:
+    name: kernel.panic_on_oops
+    value: "1"
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
+- name: Set Sysctl for 'vm.panic_on_oom'
+  sysctl:
+    name: vm.panic_on_oom
+    value: "0"
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
+- name: Set Sysctl for 'vm.overcommit_memory'
+  sysctl:
+    name: vm.overcommit_memory
+    value: "1"
+    sysctl_file: /etc/sysctl.conf
+    sysctl_set: yes
+    reload: no
+    state: present
+
 - name: Set Sysctl for 'vm.max_map_count'
   sysctl:
     name: vm.max_map_count

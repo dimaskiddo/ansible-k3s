@@ -28,8 +28,11 @@ ExecStart=/usr/local/bin/k3s \
   agent \
     --node-name {{ node_name }} \
     --node-ip {{ node_ip }} \
+    --protect-kernel-defaults \
     --kubelet-arg allowed-unsafe-sysctls=net.core.somaxconn \
     --kubelet-arg pods-per-core={{ pods_per_core }} \
+    --kubelet-arg streaming-connection-idle-timeout=5m \
+    --kubelet-arg make-iptables-util-chains=true \
     --kube-proxy-arg metrics-bind-address=0.0.0.0 \
 {% if enable_ip_vs == 'true' %}
     --kube-proxy-arg proxy-mode=ipvs \

@@ -53,6 +53,27 @@
     path: /tmp/helm.tar.gz
     state: absent
 
+- name: Create K3S Server Directory
+  file:
+    path: {{ item }}
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items:
+    - /var/lib/rancher/k3s
+    - /var/lib/rancher/k3s/server
+    - /var/lib/rancher/k3s/server/manifests
+    - /var/lib/rancher/k3s/server/logs
+
+- name: Create K3S Audit File from Template
+  template:
+    src: audit.yaml.j2
+    dest: /var/lib/rancher/k3s/server/audit.yaml
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Create K3S Installer File from Template
   template:
     src: k3s-install.sh.j2

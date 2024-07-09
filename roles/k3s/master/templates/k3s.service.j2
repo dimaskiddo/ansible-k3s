@@ -53,14 +53,25 @@ ExecStart=/usr/local/bin/k3s \
 {% endif -%}
 {% if cluster_cidr != "" %}
     --cluster-cidr {{ cluster_cidr }} \
-{% endif -%}  
+{% endif -%}
+    --secrets-encryption \
+    --protect-kernel-defaults \
+    --kube-apiserver-arg audit-policy-file=/var/lib/rancher/k3s/server/audit.yaml \
+    --kube-apiserver-arg audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log \
+    --kube-apiserver-arg audit-log-maxage=30 \
+    --kube-apiserver-arg audit-log-maxbackup=10 \
+    --kube-apiserver-arg audit-log-maxsize=100 \
+    --kube-apiserver-arg request-timeout=300s \
+    --kube-apiserver-arg service-account-lookup=true \
+    --kubelet-arg pods-per-core={{ pods_per_core }} \
+    --kubelet-arg allowed-unsafe-sysctls=net.core.somaxconn \
+    --kubelet-arg streaming-connection-idle-timeout=5m \
+    --kubelet-arg make-iptables-util-chains=true \
+    --kube-proxy-arg metrics-bind-address=0.0.0.0 \
 {% if enable_ip_vs == 'true' %}
     --kube-proxy-arg proxy-mode=ipvs \
     --kube-proxy-arg ipvs-scheduler={{ ip_vs_mode }} \
 {% endif %}
-    --kube-proxy-arg metrics-bind-address=0.0.0.0 \
-    --kubelet-arg pods-per-core={{ pods_per_core }} \
-    --kubelet-arg allowed-unsafe-sysctls=net.core.somaxconn \
 {% if enable_zfs == 'true' %}
     --snapshotter=native \
 {% endif %}
