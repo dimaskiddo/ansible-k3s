@@ -55,7 +55,7 @@
 
 - name: Create K3S Server Directory
   file:
-    path: {{ item }}
+    path: "{{ item }}"
     owner: root
     group: root
     mode: 0755
