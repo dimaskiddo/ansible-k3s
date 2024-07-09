@@ -37,7 +37,7 @@ ExecStart=/usr/local/bin/k3s \
 {% if enable_ip_vs == 'true' %}
     --kube-proxy-arg proxy-mode=ipvs \
     --kube-proxy-arg ipvs-scheduler={{ ip_vs_mode }} \
-{% endif %}
+{% endif -%}
 {% if enable_zfs == 'true' %}
     --snapshotter=native \
 {% endif %}
