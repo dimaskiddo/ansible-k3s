@@ -2,6 +2,8 @@
 # K3s Certificate Expiration and Rotation Script
 # Created By Dimas Restu Hidayanto (dimas.restu@student.upi.edu)
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 if [ $# -lt 1 ]
 then
   echo "`date "+%Y-%m-%d %H:%M:%S"` [FATAL] Please Specify K3s type, master or agent"

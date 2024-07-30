@@ -2,6 +2,8 @@
 # Linux Memory Flusher Script
 # Created By Dimas Restu Hidayanto (dimas.restu@student.upi.edu)
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 echo "Flushing memory..."
 sync; sync; sync; echo 3 > /proc/sys/vm/drop_caches
 
